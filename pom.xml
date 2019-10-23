@@ -29,7 +29,6 @@
 		<httpclient.version>4.5.8</httpclient.version>
 	</properties>
 
-
 	<licenses>
 		<license>
 			<name>GNU General Public License version 3</name>
