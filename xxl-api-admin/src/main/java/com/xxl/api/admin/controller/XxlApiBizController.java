@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -21,7 +22,7 @@ import java.util.Map;
 /**
  * Created by xuxueli on 17/5/23.
  */
-@Controller
+@RestController
 @RequestMapping("/biz")
 public class XxlApiBizController {
 
@@ -34,8 +35,11 @@ public class XxlApiBizController {
 
     @RequestMapping
     @PermessionLimit(superUser = true)
+//    @PermessionLimit(limit=false)
+    //NOSUCCESS_TODO 管理权限注意些
     public String index(Model model) {
-        return "biz/biz.list";
+//        return "biz/biz.list";
+    	return ""+new ReturnT<String>(ReturnT.SUCCESS_CODE,"请求跳转至biz页面/biz.list");
     }
 
     @RequestMapping("/pageList")

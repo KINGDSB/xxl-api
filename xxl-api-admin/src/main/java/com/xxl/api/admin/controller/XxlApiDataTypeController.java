@@ -1,6 +1,9 @@
 package com.xxl.api.admin.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xxl.api.admin.controller.annotation.PermessionLimit;
 import com.xxl.api.admin.core.consistant.FieldTypeEnum;
 import com.xxl.api.admin.core.model.*;
 import com.xxl.api.admin.core.util.ApiDataTypeToCode;
@@ -18,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -28,8 +32,9 @@ import java.util.Map;
 /**
  * Created by xuxueli on 17/5/23.
  */
-@Controller
+@RestController
 @RequestMapping("/datatype")
+//NOSUCCESS_TODO
 public class XxlApiDataTypeController {
 
     @Resource
@@ -50,8 +55,18 @@ public class XxlApiDataTypeController {
         // 业务线列表
         List<XxlApiBiz> bizList = xxlApiBizDao.loadAll();
         model.addAttribute("bizList", bizList);
-
-        return "datatype/datatype.list";
+        
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json;
+		try {
+//        return "datatype/datatype.list";
+			json = objectMapper.writeValueAsString(model);
+			return json+new ReturnT<String>(ReturnT.SUCCESS_CODE,"成功请求转发至/datatype.list");
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "测试";
     }
 
 
@@ -84,13 +99,21 @@ public class XxlApiDataTypeController {
     }
 
     @RequestMapping("/addDataTypePage")
+    @PermessionLimit(limit=false)
     public String addDataTypePage(Model model) {
 
         // 业务线列表
         List<XxlApiBiz> bizList = xxlApiBizDao.loadAll();
         model.addAttribute("bizList", bizList);
-
-        return "datatype/datatype.add";
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+			String json = objectMapper.writeValueAsString(model);
+			return json+new ReturnT<String>(ReturnT.SUCCESS_CODE,"成功请求转发至/adddatatype.list");
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+//        return "datatype/datatype.add";
+        return "";
     }
 
     @RequestMapping("/addDataType")

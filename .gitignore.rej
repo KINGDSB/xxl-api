@@ -1,0 +1,8 @@
+diff a/.gitignore b/.gitignore	(rejected hunks)
+@@ -28,4 +28,4 @@
+ build/
+ 
+ ### VS Code ###
+-.vscode/
+\ No newline at end of file
++.vscode/

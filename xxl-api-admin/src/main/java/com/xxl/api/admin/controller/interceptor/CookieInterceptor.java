@@ -1,14 +1,16 @@
 package com.xxl.api.admin.controller.interceptor;
 
-import com.xxl.api.admin.core.util.tool.ArrayTool;
-import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import java.util.HashMap;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
+
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import com.xxl.api.admin.core.util.tool.ArrayTool;
 
 /**
  * push cookies to model as cookieMap

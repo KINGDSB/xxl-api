@@ -1,5 +1,8 @@
 package com.xxl.api.admin.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xxl.api.admin.controller.annotation.PermessionLimit;
 import com.xxl.api.admin.core.model.*;
 import com.xxl.api.admin.core.util.tool.ArrayTool;
 import com.xxl.api.admin.core.util.tool.StringTool;
@@ -7,11 +10,15 @@ import com.xxl.api.admin.dao.IXxlApiDocumentDao;
 import com.xxl.api.admin.dao.IXxlApiGroupDao;
 import com.xxl.api.admin.dao.IXxlApiProjectDao;
 import com.xxl.api.admin.service.impl.LoginService;
+
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +28,7 @@ import java.util.List;
  * @author xuxueli 2017-03-31 18:10:37
  */
 @Controller
-@RequestMapping("/group")
+@RequestMapping(value="/group",produces="application/json")
 public class XxlApiGroupController {
 
 	@Resource
@@ -32,11 +39,12 @@ public class XxlApiGroupController {
 	private IXxlApiDocumentDao xxlApiDocumentDao;
 
 	@RequestMapping
-	public String index(HttpServletRequest request,
-						Model model,
-						int projectId,
-						@RequestParam(required = false, defaultValue = "-1")  int groupId) {
-
+	@ResponseBody
+	@PermessionLimit(limit=false)
+	public String index(Model model,
+						Integer projectId,
+						@RequestParam(required = false, defaultValue = "-1")  Integer groupId) {
+		
 		// 项目
 		XxlApiProject xxlApiProject = xxlApiProjectDao.load(projectId);
 		if (xxlApiProject == null) {
@@ -69,9 +77,20 @@ public class XxlApiGroupController {
 		model.addAttribute("documentList", documentList);
 
 		// 权限
-		model.addAttribute("hasBizPermission", hasBizPermission(request, xxlApiProject.getBizId()));
-
-		return "group/group.list";
+//		model.addAttribute("hasBizPermission", hasBizPermission(request, xxlApiProject.getBizId()));
+		
+//		ModelAndView modelAndView=new ModelAndView(new MappingJackson2JsonView());
+//		modelAndView.addObject("group",model);
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
+			
+			String m =objectMapper.writeValueAsString(model);
+			return m+new ReturnT<String>(ReturnT.SUCCESS_CODE,"请求跳转至分组页面/group"); //biaoji
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "";
 	}
 
 	private boolean hasBizPermission(HttpServletRequest request, int bizId){
