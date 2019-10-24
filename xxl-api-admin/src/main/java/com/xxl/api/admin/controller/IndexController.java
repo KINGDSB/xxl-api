@@ -34,7 +34,7 @@ public class IndexController {
 		}
 		return "redirect:/project";
 	}
-	
+
 	@RequestMapping("/toLogin")
 	@PermessionLimit(limit=false)
 	public String toLogin(Model model, HttpServletRequest request) {
@@ -44,7 +44,7 @@ public class IndexController {
 		}
 		return "login";
 	}
-	
+
 	@RequestMapping(value="login", method=RequestMethod.POST)
 	@ResponseBody
 	@PermessionLimit(limit=false)
@@ -59,7 +59,15 @@ public class IndexController {
 		ReturnT<String> loginRet = loginService.login(response, userName, password, ifRem);
 		return loginRet;
 	}
-	
+
+	@RequestMapping(value="test", method=RequestMethod.GET)
+	@ResponseBody
+	@PermessionLimit(limit=false)
+	public String test(String str){
+		System.out.println("test");
+		return "test:"+str;
+	}
+
 	@RequestMapping(value="logout", method=RequestMethod.POST)
 	@ResponseBody
 	@PermessionLimit(limit=false)
@@ -67,10 +75,10 @@ public class IndexController {
 		loginService.logout(request, response);
 		return ReturnT.SUCCESS;
 	}
-	
+
 	@RequestMapping("/help")
 	public String help() {
 		return "help";
 	}
-	
+
 }
