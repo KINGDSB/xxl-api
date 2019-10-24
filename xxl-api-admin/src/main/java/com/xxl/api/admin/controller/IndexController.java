@@ -46,7 +46,7 @@ public class IndexController {
 //		return "redirect:/project";
 		return new ReturnT<String>(ReturnT.SUCCESS_CODE,"进入项目");
 	}
-	
+
 	@RequestMapping("/toLogin")
 	@PermessionLimit(limit=false)
 	
@@ -61,7 +61,7 @@ public class IndexController {
 //		return "login";
 		return new ReturnT<String>(ReturnT.FAIL_CODE,"当前无用户登陆，跳转至登陆");
 	}
-	
+
 	@RequestMapping(value="login", method=RequestMethod.POST)
 	
 	@PermessionLimit(limit=false)
@@ -76,7 +76,15 @@ public class IndexController {
 		ReturnT<String> loginRet = loginService.login(response, userName, password, ifRem);
 		return loginRet;
 	}
-	
+
+	@RequestMapping(value="test", method=RequestMethod.GET)
+	@ResponseBody
+	@PermessionLimit(limit=false)
+	public String test(String str){
+		System.out.println("test");
+		return "test:"+str;
+	}
+
 	@RequestMapping(value="logout", method=RequestMethod.POST)
 //	@ResponseBody
 	@PermessionLimit(limit=false)
@@ -84,7 +92,7 @@ public class IndexController {
 		loginService.logout(request, response);
 		return ReturnT.SUCCESS;
 	}
-	
+
 	@RequestMapping("/help")
 	@PermessionLimit(limit=false)
 	public ReturnT<String> help() {
