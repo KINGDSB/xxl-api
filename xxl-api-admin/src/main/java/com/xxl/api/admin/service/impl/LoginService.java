@@ -1,12 +1,14 @@
 package com.xxl.api.admin.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.xxl.api.admin.core.model.ReturnT;
 import com.xxl.api.admin.core.model.XxlApiUser;
 import com.xxl.api.admin.core.util.CookieUtil;
 import com.xxl.api.admin.core.util.JacksonUtil;
+import com.xxl.api.admin.core.util.TokenUtils;
 import com.xxl.api.admin.dao.IXxlApiUserDao;
+import com.xxl.api.admin.dto.LoginDTO;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -24,47 +26,51 @@ public class LoginService {
     @Resource
     private IXxlApiUserDao xxlApiUserDao;
 
-    private String makeToken(XxlApiUser xxlApiUser){
-        String tokenJson = JacksonUtil.writeValueAsString(xxlApiUser);
-        String tokenHex = new BigInteger(tokenJson.getBytes()).toString(16);
-        return tokenHex;
-    }
-    private XxlApiUser parseToken(String tokenHex){
-        XxlApiUser xxlApiUser = null;
-        if (tokenHex != null) {
-            String tokenJson = new String(new BigInteger(tokenHex, 16).toByteArray());      // username_password(md5)
-            xxlApiUser = JacksonUtil.readValue(tokenJson, XxlApiUser.class);
-        }
-        return xxlApiUser;
-    }
-
-
     /**
      * login
      *
-     * @param response
-     * @param usernameParam
-     * @param passwordParam
-     * @param ifRemember
+     * @param dto
      * @return
      */
-    public ReturnT<String> login(HttpServletResponse response, String usernameParam, String passwordParam, boolean ifRemember){
+    public ReturnT<String> login(LoginDTO dto){
 
-        XxlApiUser xxlApiUser = xxlApiUserDao.findByUserName(usernameParam);
+        XxlApiUser xxlApiUser = xxlApiUserDao.findByUserName(dto.getUsername());
         if (xxlApiUser == null) {
             return new ReturnT<String>(500, "账号或密码错误");
         }
 
-        String passwordParamMd5 = DigestUtils.md5DigestAsHex(passwordParam.getBytes());
+        // 密码加密暂时就在前端加密
+        String passwordParamMd5 = dto.getPassword();
+//        String passwordParamMd5 = DigestUtils.md5DigestAsHex(passwordParam.getBytes());
         if (!xxlApiUser.getPassword().equals(passwordParamMd5)) {
             return new ReturnT<String>(500, "账号或密码错误");
         }
 
-        String loginToken = makeToken(xxlApiUser);
+        JSONObject data = JSONObject.parseObject("{\n" +
+                "    \"id\": 1,\n" +
+                "    \"name\": 1,\n" +
+                "    \"username\": 1,\n" +
+                "    \"password\": \"\",\n" +
+                "    \"avatar\": \"https://gw.alipayobjects.com/zos/rmsportal/jZUIxmJycoymBprLOUbT.png\",\n" +
+                "    \"status\": 1,\n" +
+                "    \"telephone\": \"\",\n" +
+                "    \"lastLoginIp\": \"27.154.74.117\",\n" +
+                "    \"lastLoginTime\": 1534837621348,\n" +
+                "    \"creatorId\": \"admin\",\n" +
+                "    \"createTime\": 1497160610259,\n" +
+                "    \"deleted\": 0,\n" +
+                "    \"roleId\": \"admin\",\n" +
+                "    \"lang\": \"zh-CN\",\n" +
+                "    \"token\": \"4291d7da9005377ec9aec4a71ea837f\"\n" +
+                "  }");
 
-        // do login
-        CookieUtil.set(response, LOGIN_IDENTITY, loginToken, ifRemember);
-        return ReturnT.SUCCESS;
+        String loginToken = TokenUtils.makeToken(xxlApiUser);
+        data.put("token", loginToken);
+        data.put("id", xxlApiUser.getId());
+        data.put("name", xxlApiUser.getUserName());
+        data.put("userName", xxlApiUser.getUserName());
+
+        return ReturnT.success(data);
     }
 
     /**
@@ -86,7 +92,7 @@ public class LoginService {
     public XxlApiUser ifLogin(HttpServletRequest request){
         String cookieToken = CookieUtil.getValue(request, LOGIN_IDENTITY);
         if (cookieToken != null) {
-            XxlApiUser cookieUser = parseToken(cookieToken);
+            XxlApiUser cookieUser = TokenUtils.parseToken(cookieToken);
             if (cookieUser != null) {
                 XxlApiUser dbUser = xxlApiUserDao.findByUserName(cookieUser.getUserName());
                 if (dbUser != null) {
