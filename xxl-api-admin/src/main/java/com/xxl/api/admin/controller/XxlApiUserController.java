@@ -41,10 +41,8 @@ public class XxlApiUserController {
 
 		List<XxlApiBiz> bizList = xxlApiBizDao.loadAll();
 		model.addAttribute("bizList", bizList);
-
 		return "user/user.list";
 	}
-
 	@RequestMapping(value="info", method= RequestMethod.GET)
 	@ResponseBody
 	@PermessionLimit(limit=false)

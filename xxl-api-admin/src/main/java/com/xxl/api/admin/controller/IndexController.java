@@ -9,6 +9,7 @@ import com.xxl.api.admin.service.impl.LoginService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.DigestUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -103,28 +104,24 @@ public class IndexController {
 	 * @param xxlApiUser
 	 * @return
 	 */
-	@RequestMapping("/register")
+	@RequestMapping("/auth/register")
+	@PermessionLimit(limit=false)
 //	@ResponseBody
-	public ReturnT<String> Register(XxlApiUser xxlApiUser){
-		if (StringTool.isBlank(xxlApiUser.getUserName())) {
-			return new ReturnT<String>(ReturnT.FAIL_CODE, "请输入登录账号");
-		}
-		if (StringTool.isBlank(xxlApiUser.getPassword())) {
-			return new ReturnT<String>(ReturnT.FAIL_CODE, "请输入密码");
-		}
-
+	public ReturnT<String> Register(@RequestBody XxlApiUser xxlApiUser){
+		
 		// valid
 		XxlApiUser existUser = xxlApiUserDao.findByUserName(xxlApiUser.getUserName());
 		if (existUser != null) {
 			return new ReturnT<String>(ReturnT.FAIL_CODE, "“登录账号”重复，请更换");
+		}else{
+			// passowrd md5
+			xxlApiUser.setPermissionBiz("1");
+			String md5Password = DigestUtils.md5DigestAsHex(xxlApiUser.getPassword().getBytes());
+			xxlApiUser.setPassword(md5Password);
+			int ret = xxlApiUserDao.add(xxlApiUser);
+			return (ret>0)?ReturnT.SUCCESS:ReturnT.FAIL;
 		}
-
-		// passowrd md5
-		String md5Password = DigestUtils.md5DigestAsHex(xxlApiUser.getPassword().getBytes());
-		xxlApiUser.setPassword(md5Password);
-
-		int ret = xxlApiUserDao.add(xxlApiUser);
-		return (ret>0)?ReturnT.SUCCESS:ReturnT.FAIL;
+		
 		
 	}
 }
