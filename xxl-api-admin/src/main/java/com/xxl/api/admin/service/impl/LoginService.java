@@ -9,6 +9,7 @@ import com.xxl.api.admin.core.util.TokenUtils;
 import com.xxl.api.admin.dao.IXxlApiUserDao;
 import com.xxl.api.admin.dto.LoginDTO;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -40,8 +41,8 @@ public class LoginService {
         }
 
         // 密码加密暂时就在前端加密
-        String passwordParamMd5 = dto.getPassword();
-//        String passwordParamMd5 = DigestUtils.md5DigestAsHex(passwordParam.getBytes());
+//        String passwordParamMd5 = dto.getPassword();
+        String passwordParamMd5 = DigestUtils.md5DigestAsHex(dto.getPassword().getBytes());
         if (!xxlApiUser.getPassword().equals(passwordParamMd5)) {
             return new ReturnT<String>(500, "账号或密码错误");
         }
