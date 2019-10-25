@@ -10,8 +10,16 @@ public class XxlApiUser {
     private String password;        // 密码
     private int type;               // 用户类型：0-普通用户、1-管理员
     private String permissionBiz;  // 业务线权限，多个逗号分隔
+    private String organization;
+    public String getOrganization() {
+		return organization;
+	}
 
-    public int getId() {
+	public void setOrganization(String organization) {
+		this.organization = organization;
+	}
+
+	public int getId() {
         return id;
     }
 
