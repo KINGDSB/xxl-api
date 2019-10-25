@@ -1,9 +1,11 @@
 package com.xxl.api.admin.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.xxl.api.admin.controller.annotation.PermessionLimit;
 import com.xxl.api.admin.core.model.ReturnT;
 import com.xxl.api.admin.core.model.XxlApiBiz;
 import com.xxl.api.admin.core.model.XxlApiUser;
+import com.xxl.api.admin.core.util.TokenUtils;
 import com.xxl.api.admin.core.util.tool.StringTool;
 import com.xxl.api.admin.dao.IXxlApiBizDao;
 import com.xxl.api.admin.dao.IXxlApiUserDao;
@@ -46,7 +48,8 @@ public class XxlApiUserController {
 	@RequestMapping(value="info", method= RequestMethod.GET)
 	@ResponseBody
 	@PermessionLimit(limit=false)
-	public String info(String str){
+	public ReturnT<String> info(HttpServletRequest request){
+
 		String info = "{\n" +
 				"    \"id\": \"4291d7da9005377ec9aec4a71ea837f\",\n" +
 				"    \"name\": \"天野远子\",\n" +
@@ -404,10 +407,17 @@ public class XxlApiUserController {
 				"  }]\n" +
 				"  }\n" +
 				"  }";
+
+		JSONObject data = JSONObject.parseObject(info);
+		XxlApiUser tokenUser = TokenUtils.getTokenUser(request);
+		data.put("id", tokenUser.getId());
+		data.put("name", tokenUser.getUserName());
+		data.put("userName", tokenUser.getUserName());
+
 		System.out.println(" 返回假数据 ");
 		System.out.println(info);
 
-		return info;
+		return ReturnT.success(data);
 	}
 
 	@RequestMapping("/pageList")

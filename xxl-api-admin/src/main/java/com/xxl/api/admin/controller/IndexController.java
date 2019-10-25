@@ -3,12 +3,13 @@ package com.xxl.api.admin.controller;
 import com.xxl.api.admin.controller.annotation.PermessionLimit;
 import com.xxl.api.admin.core.model.ReturnT;
 import com.xxl.api.admin.core.model.XxlApiUser;
-import com.xxl.api.admin.core.util.tool.StringTool;
+
 import com.xxl.api.admin.dao.IXxlApiUserDao;
+import com.xxl.api.admin.dto.LoginDTO;
 import com.xxl.api.admin.service.impl.LoginService;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.DigestUtils;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,7 +33,6 @@ public class IndexController {
 	private IXxlApiUserDao xxlApiUserDao;
 
 	@RequestMapping("/")
-//	@ResponseBody
 	@PermessionLimit(limit=false)
 	/*
 	 * 原返回值String
@@ -40,7 +40,7 @@ public class IndexController {
 	public ReturnT<String> index(Model model, HttpServletRequest request) {
 		XxlApiUser loginUser = loginService.ifLogin(request);
 		if (loginUser == null) {
-			
+
 //			return "redirect:/toLogin";
 			return new ReturnT<String>(ReturnT.FAIL_CODE,"跳转至登陆");
 		}
@@ -50,9 +50,9 @@ public class IndexController {
 
 	@RequestMapping("/toLogin")
 	@PermessionLimit(limit=false)
-	
+
 	  //原返回值String
-	 
+
 	public ReturnT<String> toLogin(Model model, HttpServletRequest request) {
 		XxlApiUser loginUser = loginService.ifLogin(request);
 		if (loginUser != null) {
@@ -64,17 +64,10 @@ public class IndexController {
 	}
 
 	@RequestMapping(value="login", method=RequestMethod.POST)
-	
 	@PermessionLimit(limit=false)
-	public ReturnT<String> loginDo(HttpServletRequest request, HttpServletResponse response, String ifRemember, String userName, String password){
-		// param
-		boolean ifRem = false;
-		if (StringTool.isNotBlank(ifRemember) && "on".equals(ifRemember)) {
-			ifRem = true;
-		}
-
+	public ReturnT<String> loginDo(@RequestBody LoginDTO dto){
 		// do login
-		ReturnT<String> loginRet = loginService.login(response, userName, password, ifRem);
+		ReturnT<String> loginRet = loginService.login(dto);
 		return loginRet;
 	}
 
@@ -100,7 +93,7 @@ public class IndexController {
 		return new ReturnT<String>(ReturnT.SUCCESS_CODE,"请求转发到帮助页面");
 	}
 	/**
-	 * 注册 
+	 * 注册
 	 * @param xxlApiUser
 	 * @return
 	 */
@@ -121,7 +114,7 @@ public class IndexController {
 			int ret = xxlApiUserDao.add(xxlApiUser);
 			return (ret>0)?ReturnT.SUCCESS:ReturnT.FAIL;
 		}
-		
-		
+
+
 	}
 }
