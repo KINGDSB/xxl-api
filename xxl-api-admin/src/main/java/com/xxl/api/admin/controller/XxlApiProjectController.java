@@ -3,11 +3,11 @@ package com.xxl.api.admin.controller;
 import com.xxl.api.admin.core.model.*;
 import com.xxl.api.admin.core.util.tool.ArrayTool;
 import com.xxl.api.admin.core.util.tool.StringTool;
-import com.xxl.api.admin.dao.IXxlApiBizDao;
-import com.xxl.api.admin.dao.IXxlApiDocumentDao;
-import com.xxl.api.admin.dao.IXxlApiGroupDao;
-import com.xxl.api.admin.dao.IXxlApiProjectDao;
+import com.xxl.api.admin.dao.*;
+import com.xxl.api.admin.dto.ProjectPageDTO;
 import com.xxl.api.admin.service.impl.LoginService;
+import com.xxl.api.admin.vo.PageVO;
+import com.xxl.api.admin.vo.ProjectVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,9 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author xuxueli 2015-12-19 16:13:16
@@ -35,6 +34,8 @@ public class XxlApiProjectController {
 	private IXxlApiBizDao xxlApiBizDao;
 	@Resource
 	private IXxlApiDocumentDao xxlApiDocumentDao;
+	@Resource
+	private IXxlApiUserDao xxlApiUserDao;
 
 	@RequestMapping
 	public String index(Model model, @RequestParam(required = false, defaultValue = "0") int bizId) {
@@ -48,12 +49,12 @@ public class XxlApiProjectController {
 
 		return "project/project.list";
 	}
-
+/*
 	@RequestMapping("/pageList")
 	@ResponseBody
 	public Map<String, Object> pageList(@RequestParam(required = false, defaultValue = "0") int start,
 										@RequestParam(required = false, defaultValue = "10") int length,
-										String name, int bizId) {
+										String name, int bizId, int userId) {
 		// page list
 		List<XxlApiProject> list = xxlApiProjectDao.pageList(start, length, name, bizId);
 		int list_count = xxlApiProjectDao.pageListCount(start, length, name, bizId);
@@ -64,6 +65,39 @@ public class XxlApiProjectController {
 		maps.put("recordsFiltered", list_count);	// 过滤后的总记录数
 		maps.put("data", list);  					// 分页列表
 		return maps;
+	}
+*/
+
+	@RequestMapping("/pageList")
+	@ResponseBody
+	public ReturnT<PageVO> pageList(ProjectPageDTO dto) {
+		// page list
+
+		XxlApiUser user = xxlApiUserDao.findById(dto.getUserId());
+
+		List<XxlApiProject> list = xxlApiProjectDao.pageList(dto.getPageNo()*dto.getPageSize(), dto.getPageSize(), dto.getName(), Integer.valueOf(user.getPermissionBiz()));
+		int list_count = xxlApiProjectDao.pageListCount(dto.getPageNo()*dto.getPageSize(), dto.getPageSize(), dto.getName(), Integer.valueOf(user.getPermissionBiz()));
+
+		List<ProjectVO> projectVOS = list.stream().map(project -> {
+			ProjectVO projectVO = new ProjectVO();
+			projectVO.setId(project.getId());
+			projectVO.setDescription(project.getDesc());
+			projectVO.setTitle(project.getName());
+			projectVO.setStatus(project.getStatus());
+			// 暂无 写死
+			projectVO.setCover("https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png");
+			projectVO.setUpdatedAt("2018-07-26 00:00:00");
+			return projectVO;
+		}).collect(Collectors.toList());
+
+		PageVO vo = new PageVO();
+		vo.setData(projectVOS);
+		vo.setPageNo(dto.getPageNo());
+		vo.setPageSize(dto.getPageSize());
+		vo.setTotalCount(list_count);
+		vo.setTotalPage(vo.getPageCount());
+
+		return ReturnT.success(vo);
 	}
 
 	private boolean hasBizPermission(HttpServletRequest request, int bizId){
