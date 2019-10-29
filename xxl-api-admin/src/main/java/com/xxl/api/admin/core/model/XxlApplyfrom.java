@@ -1,40 +1,48 @@
 package com.xxl.api.admin.core.model;
 
 public class XxlApplyfrom {
-	private String ApplyOfName;
-	private String ApplyOfProjectName;
-	private String ApplyOfPort;
-	private String ApplyOfDate;
-	private int ApplyOfStatus;
+	private int ID;
+	private String applyOfName;
+	private String applyOfProjectName;
+	private String applyOfPort;
+	private String applyOfDate;
+	private int applyOfStatus;
+	
+	public int getID() {
+		return ID;
+	}
+	public void setID(int iD) {
+		ID = iD;
+	}
 	public String getApplyOfName() {
-		return ApplyOfName;
+		return applyOfName;
 	}
 	public void setApplyOfName(String applyOfName) {
-		ApplyOfName = applyOfName;
+		this.applyOfName = applyOfName;
 	}
 	public String getApplyOfProjectName() {
-		return ApplyOfProjectName;
+		return applyOfProjectName;
 	}
 	public void setApplyOfProjectName(String applyOfProjectName) {
-		ApplyOfProjectName = applyOfProjectName;
+		this.applyOfProjectName = applyOfProjectName;
 	}
-	public String getApplyOfProt() {
-		return ApplyOfPort;
+	public String getApplyOfPort() {
+		return applyOfPort;
 	}
-	public void setApplyOfProt(String applyOfProt) {
-		ApplyOfPort = applyOfProt;
+	public void setApplyOfPort(String applyOfPort) {
+		this.applyOfPort = applyOfPort;
 	}
 	public String getApplyOfDate() {
-		return ApplyOfDate;
+		return applyOfDate;
 	}
 	public void setApplyOfDate(String applyOfDate) {
-		ApplyOfDate = applyOfDate;
+		this.applyOfDate = applyOfDate;
 	}
 	public int getApplyOfStatus() {
-		return ApplyOfStatus;
+		return applyOfStatus;
 	}
 	public void setApplyOfStatus(int applyOfStatus) {
-		ApplyOfStatus = applyOfStatus;
+		this.applyOfStatus = applyOfStatus;
 	}
 	
 }

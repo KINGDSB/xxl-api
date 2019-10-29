@@ -1,20 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xxl.api.admin.dao.XxlApiApplyDao">
+<mapper namespace="com.xxl.api.admin.dao.BlueStarApplyDao">
        <insert id="addApplyOf" parameterType="com.xxl.api.admin.core.model.XxlApplyfrom" useGeneratedKeys="true" keyProperty="ID" >
              INSERT INTO xxl_api_applyof (
-                    ApplyOfName,
-                    ApplyOfProjectName,
-                    `ApplyOfPort`,
-                    ApplyOfDate,
-                `ApplyOfStatus`
+                    apply_of_name,
+                    apply_of_project_name,
+                    apply_of_port,
+                    apply_of_date,
+                apply_of_status
              ) VALUES (
-                    #{ApplyOfName},
-                    #{ApplyOfProjectName},
-                    #{ApplyOfPort},
-                    #{ApplyOfDate},
-                    #{ApplyOfStatus}
+                    #{applyOfName},
+                    #{applyOfProjectName},
+                    #{applyOfPort},
+                    #{applyOfDate},
+                    #{applyOfStatus}
              );
        </insert>
+     <!--   <insert id="add" parameterType="com.xxl.api.admin.core.model.XxlApiUser" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO xxl_api_user (
+			userName,
+			password,
+			`type`,
+			permission_biz
+		) VALUES (
+			#{userName},
+			#{password},
+			#{type},
+			#{permissionBiz}
+		);
+	</insert> -->
 </mapper>

@@ -3,6 +3,7 @@ package com.xxl.api.admin.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.xxl.api.admin.controller.annotation.PermessionLimit;
@@ -14,10 +15,12 @@ import com.xxl.api.admin.service.BlueStarApplyOfServicev;
 public class BlueStarApplyofController {
 	@Autowired
 	BlueStarApplyOfServicev  applyOfService;
-	@RequestMapping("/auth/applyof")
+	@RequestMapping(value="/auth/applyof",method=RequestMethod.POST)
 	@PermessionLimit(limit=false)
-	public ReturnT<String> getApplyOf(XxlApplyfrom xxlApplyform){   //@RequestBody
+	public ReturnT<String> getApplyOf(@RequestBody XxlApplyfrom xxlApplyform){   //@RequestBody
 		int applyOfDao = applyOfService.getApplyOfDao(xxlApplyform);
+		String applyOfName = xxlApplyform.getApplyOfName();
+		System.out.println(applyOfName);
 		return (applyOfDao>0)?ReturnT.SUCCESS:ReturnT.FAIL;
 	}
 }
