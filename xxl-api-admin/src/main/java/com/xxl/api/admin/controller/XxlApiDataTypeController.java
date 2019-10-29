@@ -16,7 +16,8 @@ import com.xxl.api.admin.dao.IXxlApiDataTypeFieldDao;
 import com.xxl.api.admin.dao.IXxlApiDocumentDao;
 import com.xxl.api.admin.service.IXxlApiDataTypeService;
 import com.xxl.api.admin.service.impl.LoginService;
-import org.springframework.stereotype.Controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,9 +26,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by xuxueli on 17/5/23.
@@ -47,7 +51,7 @@ public class XxlApiDataTypeController {
     private IXxlApiDocumentDao xxlApiDocumentDao;
     @Resource
     private IXxlApiDataTypeService xxlApiDataTypeService;
-
+   
 
     @RequestMapping
     public String index(Model model) {
@@ -99,21 +103,31 @@ public class XxlApiDataTypeController {
     }
 
     @RequestMapping("/addDataTypePage")
-    @PermessionLimit(limit=false)
-    public String addDataTypePage(Model model) {
-
+//   @PermessionLimit(limit=false)     //代码留白
+    public String addDataTypePage() throws JsonProcessingException {
         // 业务线列表
         List<XxlApiBiz> bizList = xxlApiBizDao.loadAll();
-        model.addAttribute("bizList", bizList);
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-			String json = objectMapper.writeValueAsString(model);
-			return json+new ReturnT<String>(ReturnT.SUCCESS_CODE,"成功请求转发至/adddatatype.list");
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+/*
+        bizList.stream().filter(xxlApiBiz -> "-1".equals(xxlApiBiz.getId())).collect(Collectors.toList())
+        
+        
+        for (XxlApiBiz xxlApiBiz : bizList) {
+			
 		}
+        Map<String, V>
+        
+        bizList.forEach(item -> {
+        	
+        });*/
+        
+/*        List<XxlApiDocument> bizLisT1 = new ArrayList<>();
+        bizLisT1.stream().collect(Collectors.groupingBy(XxlApiDocument::getGroupId));
+        bizLisT1.stream().collect(Collectors.groupingBy(item -> item.getGroupId())).collect(Collectors.toList());
+        
+        model.addAttribute("bizList", bizList);*/
+        String json = JacksonUtil.writeValueAsString(bizList);
+		return json+new ReturnT<String>(ReturnT.SUCCESS_CODE,"成功请求转发至/adddatatype.list");
 //        return "datatype/datatype.add";
-        return "";
     }
 
     @RequestMapping("/addDataType")

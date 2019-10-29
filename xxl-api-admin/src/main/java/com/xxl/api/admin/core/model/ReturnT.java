@@ -1,6 +1,7 @@
 package com.xxl.api.admin.core.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * common return
@@ -22,6 +23,13 @@ public class ReturnT<T> implements Serializable {
 	public ReturnT(int code, String msg) {
 		this.code = code;
 		this.msg = msg;
+	}
+
+	public ReturnT(int code, String msg, T content) {
+		super();
+		this.code = code;
+		this.msg = msg;
+		this.content = content;
 	}
 	public ReturnT(T content) {
 		this.code = SUCCESS_CODE;

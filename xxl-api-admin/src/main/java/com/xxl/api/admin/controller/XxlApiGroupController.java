@@ -30,7 +30,7 @@ import java.util.List;
 @Controller
 @RequestMapping(value="/group",produces="application/json")
 public class XxlApiGroupController {
-
+ 
 	@Resource
 	private IXxlApiProjectDao xxlApiProjectDao;
 	@Resource

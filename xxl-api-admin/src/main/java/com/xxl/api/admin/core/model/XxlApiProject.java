@@ -1,11 +1,8 @@
 package com.xxl.api.admin.core.model;
 
-import lombok.Data;
-
 /**
  * Created by xuxueli on 17/3/30.
  */
-@Data
 public class XxlApiProject {
 
     private int id;                 // 项目ID
@@ -15,6 +12,60 @@ public class XxlApiProject {
     private String baseUrlPpe;      // 根地址(预发布)
     private String baseUrlQa;       // 根地址(测试)
     private int bizId;              // 业务线ID
-    private int status;              // 项目状态\r\n1.审核中\r\n2.审核不通过\r\n0.审核通过\r\n3.已停止
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public String getBaseUrlProduct() {
+        return baseUrlProduct;
+    }
+
+    public void setBaseUrlProduct(String baseUrlProduct) {
+        this.baseUrlProduct = baseUrlProduct;
+    }
+
+    public String getBaseUrlPpe() {
+        return baseUrlPpe;
+    }
+
+    public void setBaseUrlPpe(String baseUrlPpe) {
+        this.baseUrlPpe = baseUrlPpe;
+    }
+
+    public String getBaseUrlQa() {
+        return baseUrlQa;
+    }
+
+    public void setBaseUrlQa(String baseUrlQa) {
+        this.baseUrlQa = baseUrlQa;
+    }
+
+    public int getBizId() {
+        return bizId;
+    }
+
+    public void setBizId(int bizId) {
+        this.bizId = bizId;
+    }
 }

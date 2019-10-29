@@ -20,6 +20,7 @@ import java.util.Map;
  * 
  * @author xuxueli 2015-9-25 18:02:56
  */
+
 public class JacksonUtil {
 	private static Logger logger = LoggerFactory.getLogger(JacksonUtil.class);
 
