@@ -1,11 +1,13 @@
 package com.xxl.api.admin.core.model;
 
+import java.sql.Timestamp;
+
 public class XxlApplyfrom {
 	private int ID;
 	private String applyOfName;
 	private String applyOfProjectName;
 	private String applyOfPort;
-	private String applyOfDate;
+	private Timestamp applyOfDate;
 	private int applyOfStatus;
 	
 	public int getID() {
@@ -32,10 +34,10 @@ public class XxlApplyfrom {
 	public void setApplyOfPort(String applyOfPort) {
 		this.applyOfPort = applyOfPort;
 	}
-	public String getApplyOfDate() {
+	public Timestamp getApplyOfDate() {
 		return applyOfDate;
 	}
-	public void setApplyOfDate(String applyOfDate) {
+	public void setApplyOfDate(Timestamp applyOfDate) {
 		this.applyOfDate = applyOfDate;
 	}
 	public int getApplyOfStatus() {

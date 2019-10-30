@@ -8,7 +8,7 @@
                     apply_of_project_name,
                     apply_of_port,
                     apply_of_date,
-                apply_of_status
+                	apply_of_status
              ) VALUES (
                     #{applyOfName},
                     #{applyOfProjectName},
@@ -17,17 +17,24 @@
                     #{applyOfStatus}
              );
        </insert>
-     <!--   <insert id="add" parameterType="com.xxl.api.admin.core.model.XxlApiUser" useGeneratedKeys="true" keyProperty="id" >
-		INSERT INTO xxl_api_user (
-			userName,
-			password,
-			`type`,
-			permission_biz
-		) VALUES (
-			#{userName},
-			#{password},
-			#{type},
-			#{permissionBiz}
-		);
-	</insert> -->
+      <insert id="updataAudit" parameterType="com.xxl.api.admin.core.model.BlueStarAudit" useGeneratedKeys="true" keyProperty="id" >
+				INSERT INTO xxl_api_audit_log (
+					apply_of_id,
+					auditor,
+					biz_coment,
+					apply_date
+				) VALUES (
+					#{applyOfId},
+					#{auditor},
+					#{bizComent},
+					#{applyDate}
+				);
+	</insert>
+	<update id="setAgreement" parameterType="com.xxl.api.admin.core.model.BlueStarAudit" >
+				UPDATE xxl_api_applyof 
+				SET apply_of_status=1 
+				WHERE ID =#{applyOfId};
+	</update>
+	
+
 </mapper>
