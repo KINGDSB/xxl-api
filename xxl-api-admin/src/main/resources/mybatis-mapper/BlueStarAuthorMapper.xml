@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+       "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xxl.api.admin.dao.BlueStarAuthorMapper">
+      <insert id="insertAudit" parameterType="com.xxl.api.admin.core.model.BlueStarAudit" >
+				INSERT 
+					INTO xxl_api_audit_log 
+					<trim prefix="(" suffix=")" suffixOverrides=",">
+					<if test="applyofId != null">
+						applyof_id,
+					</if>
+					<if test="auditor != null">
+						auditor,
+					</if>
+					<if test="bizComent != null">
+						biz_coment,
+					</if>
+					<if test="applyDate != null">
+						apply_date,
+					</if>
+					<if test="auditStatus != null">
+						audit_status,
+					</if>
+					</trim>
+					<trim prefix="values (" suffix=")" suffixOverrides=",">
+						<if test="auditor != null">
+						#{auditor,jdbcType=VARCHAR},
+						</if>
+						<if test="bizComent != null">
+						#{bizComent,jdbcType=VARCHAR},
+						</if>
+						<if test="applyDate != null">
+						#{applyDate},
+						</if>
+						<if test="auditStatus != null">
+						#{auditStatus,jdbcType=CHAR},
+						</if>
+					</trim>
+	</insert>
+</mapper>

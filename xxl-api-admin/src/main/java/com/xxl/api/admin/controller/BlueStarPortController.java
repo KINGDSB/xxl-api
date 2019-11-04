@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.xxl.api.admin.controller.annotation.PermessionLimit;
 import com.xxl.api.admin.core.model.BlueStarPort;
 import com.xxl.api.admin.core.model.ReturnT;
-import com.xxl.api.admin.service.BlueStarPortService;
+import com.xxl.api.admin.service.impl.BlueStarPortServiceImp;
 
 @RestController
 public class BlueStarPortController {
 	@Autowired
-	BlueStarPortService blueStarPortService;
+	BlueStarPortServiceImp blueStarPortService;
 	@RequestMapping("/auth/getPort")
 	@PermessionLimit(limit=false)
 	public ReturnT<List> getPort(){

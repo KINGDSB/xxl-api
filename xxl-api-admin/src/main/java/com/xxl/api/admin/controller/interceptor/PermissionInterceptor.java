@@ -53,5 +53,4 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
 
 		return super.preHandle(request, response, handler);
 	}
-	
 }

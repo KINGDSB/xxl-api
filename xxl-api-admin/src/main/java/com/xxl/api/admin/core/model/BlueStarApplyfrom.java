@@ -2,19 +2,20 @@ package com.xxl.api.admin.core.model;
 
 import java.sql.Timestamp;
 
-public class XxlApplyfrom {
-	private int ID;
+public class BlueStarApplyfrom {
+	private String id;
 	private String applyOfName;
 	private String applyOfProjectName;
 	private String applyOfPort;
 	private Timestamp applyOfDate;
-	private int applyOfStatus;
+	private String applyOfStatus;
+
 	
-	public int getID() {
-		return ID;
+	public String getId() {
+		return id;
 	}
-	public void setID(int iD) {
-		ID = iD;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getApplyOfName() {
 		return applyOfName;
@@ -40,11 +41,12 @@ public class XxlApplyfrom {
 	public void setApplyOfDate(Timestamp applyOfDate) {
 		this.applyOfDate = applyOfDate;
 	}
-	public int getApplyOfStatus() {
+	public String getApplyOfStatus() {
 		return applyOfStatus;
 	}
-	public void setApplyOfStatus(int applyOfStatus) {
+	public void setApplyOfStatus(String applyOfStatus) {
 		this.applyOfStatus = applyOfStatus;
 	}
+	
 	
 }

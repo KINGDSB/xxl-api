@@ -3,29 +3,12 @@ package com.xxl.api.admin.core.model;
 import java.sql.Timestamp;
 
 public class BlueStarAudit {
-	private int applyOfId;
+	private String id;
+	private String applyofId;
 	private String auditor;
 	private String bizComent;
 	private Timestamp applyDate;
-	private int auditStatus;
-	public int getAuditStatus() {
-		return auditStatus;
-	}
-	public void setAuditStatus(int auditStatus) {
-		this.auditStatus = auditStatus;
-	}
-	public Timestamp getApplyDate() {
-		return applyDate;
-	}
-	public void setApplyDate(Timestamp applyDate) {
-		this.applyDate = applyDate;
-	}
-	public int getApplyOfId() {
-		return applyOfId;
-	}
-	public void setApplyOfId(int applyOfId) {
-		this.applyOfId = applyOfId;
-	}
+	private String auditStatus;
 	public String getAuditor() {
 		return auditor;
 	}
@@ -38,6 +21,29 @@ public class BlueStarAudit {
 	public void setBizComent(String bizComent) {
 		this.bizComent = bizComent;
 	}
-	
+	public Timestamp getApplyDate() {
+		return applyDate;
+	}
+	public void setApplyDate(Timestamp applyDate) {
+		this.applyDate = applyDate;
+	}
+	public String getAuditStatus() {
+		return auditStatus;
+	}
+	public void setAuditStatus(String auditStatus) {
+		this.auditStatus = auditStatus;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getApplyofId() {
+		return applyofId;
+	}
+	public void setApplyofId(String applyOfId) {
+		this.applyofId = applyOfId;
+	}
 	
 }
