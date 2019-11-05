@@ -36,7 +36,7 @@ public class BlueStarApplyOfServiceImp implements BlueStarApplyOfService{
 		}else if(audit.getAuditStatus()=="02"){
 			apply.setApplyOfStatus("2");
 		}
-		audit.setApplyofId(apply.getId());//绑定申请id
+		apply.setId(audit.getApplyofId());//绑定申请id
 		applydao.updataAgreement(apply); //更新申请状态
 		return authordao.insertAudit(audit);//新增审批日志信息
 	}
