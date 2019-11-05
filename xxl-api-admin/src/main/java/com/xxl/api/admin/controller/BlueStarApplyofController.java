@@ -24,7 +24,7 @@ public class BlueStarApplyofController {
 	 * @param xxlApplyform
 	 * @return
 	 */
-	@RequestMapping(value="/auth/applyof",method=RequestMethod.POST)
+	@RequestMapping(value="/auth/addApplyof",method=RequestMethod.POST)
 	@PermessionLimit(limit=false)
 	public ReturnT<String> getApplyOf(@RequestBody BlueStarApplyfrom xxlApplyform){   //@RequestBody
 		int applyOfDao = applyOfServiceImp.getApplyOfDao(xxlApplyform);
@@ -48,7 +48,7 @@ public class BlueStarApplyofController {
 	 * 查询申请信息
 	 * @return
 	 */
-	@PostMapping("/applyof/selectAllApplyof")
+	@PostMapping("/applyof/applyofAll")
 	@PermessionLimit(limit=false)
 	public ReturnT<List> selectApplyOf(){
 		if(applyOfServiceImp.getApplyOfData()!=null){
@@ -62,7 +62,7 @@ public class BlueStarApplyofController {
 	 * 查询申请日志表
 	 * @return
 	 */
-	@PostMapping("/author/selectAllAuthor")
+	@PostMapping("/author/authorAllLog")
 	@PermessionLimit(limit=false)
 	public ReturnT<List> selectAllAuthor(){
 		if(applyOfServiceImp.selectAllAuthor()!=null){
