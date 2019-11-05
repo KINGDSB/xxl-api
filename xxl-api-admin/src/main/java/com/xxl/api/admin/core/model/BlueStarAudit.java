@@ -9,6 +9,18 @@ public class BlueStarAudit {
 	private String bizComent;
 	private Timestamp applyDate;
 	private String auditStatus;
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getApplyofId() {
+		return applyofId;
+	}
+	public void setApplyofId(String applyofId) {
+		this.applyofId = applyofId;
+	}
 	public String getAuditor() {
 		return auditor;
 	}
@@ -32,18 +44,6 @@ public class BlueStarAudit {
 	}
 	public void setAuditStatus(String auditStatus) {
 		this.auditStatus = auditStatus;
-	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	public String getApplyofId() {
-		return applyofId;
-	}
-	public void setApplyofId(String applyOfId) {
-		this.applyofId = applyOfId;
 	}
 	
 }

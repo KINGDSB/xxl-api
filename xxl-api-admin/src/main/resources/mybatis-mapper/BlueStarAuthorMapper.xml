@@ -3,9 +3,11 @@
        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xxl.api.admin.dao.BlueStarAuthorMapper">
       <insert id="insertAudit" parameterType="com.xxl.api.admin.core.model.BlueStarAudit" >
-				INSERT 
-					INTO xxl_api_audit_log 
+				INSERT INTO xxl_api_audit_log 
 					<trim prefix="(" suffix=")" suffixOverrides=",">
+					<if test="id !=null">
+						id,
+					</if>
 					<if test="applyofId != null">
 						applyof_id,
 					</if>
@@ -23,6 +25,12 @@
 					</if>
 					</trim>
 					<trim prefix="values (" suffix=")" suffixOverrides=",">
+						<if test="id !=null">
+						#{id,jdbcType=VARCHAR},
+						</if>
+						<if test="applyofId !=null">
+						#{applyofId,jdbcType=VARCHAR},
+						</if>
 						<if test="auditor != null">
 						#{auditor,jdbcType=VARCHAR},
 						</if>
@@ -30,11 +38,18 @@
 						#{bizComent,jdbcType=VARCHAR},
 						</if>
 						<if test="applyDate != null">
-						#{applyDate},
+						#{applyDate,jdbcType=TIMESTAMP},
 						</if>
 						<if test="auditStatus != null">
 						#{auditStatus,jdbcType=CHAR},
 						</if>
 					</trim>
-	</insert>
+	</insert> 
+	
+		<!-- <insert id="insertAudit" parameterType="com.xxl.api.admin.core.model.BlueStarAudit" >
+				INSERT INTO xxl_api_audit_log 
+						(id,applyof_id,auditor,biz_coment,apply_date,audit_status)
+					VALUES(#{id},#{applyofId},#{auditor},#{bizComent},#{applyDate},#{auditStatus})
+		</insert> -->	
+				
 </mapper>

@@ -16,6 +16,11 @@ import com.xxl.api.admin.core.model.BlueStarApplyfrom;
 public class BlueStarApplyofController {
 	@Autowired
 	BlueStarApplyOfServiceImp  applyOfServiceImp;
+	/**
+	 * 新增申请信息
+	 * @param xxlApplyform
+	 * @return
+	 */
 	@RequestMapping(value="/auth/applyof",method=RequestMethod.POST)
 	@PermessionLimit(limit=false)
 	public ReturnT<String> getApplyOf(@RequestBody BlueStarApplyfrom xxlApplyform){   //@RequestBody
@@ -24,10 +29,16 @@ public class BlueStarApplyofController {
 		System.out.println(applyOfName);
 		return (applyOfDao>0)?ReturnT.SUCCESS:ReturnT.FAIL;
 	}
+	/**
+	 * 申请日志信息，更改申请状态
+	 * @param audit
+	 * @param apply
+	 * @return
+	 */
 	@RequestMapping(value="/applyof/audit",method=RequestMethod.POST)
 	@PermessionLimit(limit=false)
-	public ReturnT<String> applyOfJudge(BlueStarAudit audit,BlueStarApplyfrom apply){
-		int setAudit = applyOfServiceImp.setAudit(audit, apply);
-		return (setAudit>0)?new ReturnT<String>(200,"申请通过"):new ReturnT<String>(500,"申请未通过:",audit.getBizComent());
+	public ReturnT<String> applyOfJudge(@RequestBody BlueStarAudit audit,BlueStarApplyfrom apply){
+			applyOfServiceImp.setAudit(audit, apply);
+		return (audit.getAuditStatus()=="01")?new ReturnT<String>(200,"申请通过"):new ReturnT<String>(500,"申请未通过:",audit.getBizComent());
 	}
 }

@@ -28,13 +28,16 @@ public class BlueStarApplyOfServiceImp implements BlueStarApplyOfService{
 	public int setAudit(BlueStarAudit audit,BlueStarApplyfrom apply) {
 		audit.setId(StringUtil.getUUID());
 		audit.setApplyDate(new Timestamp(System.currentTimeMillis()));
+//		audit.setAuditStatus("02");
+//		audit.setBizComent("不行");
+//		apply.setId("1");
 		if(audit.getAuditStatus()=="01"){
 			apply.setApplyOfStatus("1");
 		}else if(audit.getAuditStatus()=="02"){
 			apply.setApplyOfStatus("2");
 		}
-		audit.setApplyofId(apply.getId());//绑定申请id?
-		applydao.updataAgreement(); //更新申请状态
+		audit.setApplyofId(apply.getId());//绑定申请id
+		applydao.updataAgreement(apply); //更新申请状态
 		return authordao.insertAudit(audit);//新增审批日志信息
 	}
 }
