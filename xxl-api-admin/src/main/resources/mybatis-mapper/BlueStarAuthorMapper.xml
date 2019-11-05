@@ -44,12 +44,8 @@
 						#{auditStatus,jdbcType=CHAR},
 						</if>
 					</trim>
-	</insert> 
-	
-		<!-- <insert id="insertAudit" parameterType="com.xxl.api.admin.core.model.BlueStarAudit" >
-				INSERT INTO xxl_api_audit_log 
-						(id,applyof_id,auditor,biz_coment,apply_date,audit_status)
-					VALUES(#{id},#{applyofId},#{auditor},#{bizComent},#{applyDate},#{auditStatus})
-		</insert> -->	
-				
+			</insert> 
+			<select id="getAllAuthor" resultType="com.xxl.api.admin.core.model.BlueStarAudit">
+				SELECT * FROM xxl_api_audit_log
+			</select>
 </mapper>

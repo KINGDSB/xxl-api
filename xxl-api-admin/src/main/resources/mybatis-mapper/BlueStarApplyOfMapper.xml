@@ -52,6 +52,9 @@
 				WHERE 
 				c.id =#{id,jdbcType=VARCHAR}
 	</update>
-	
+	<select id="getApplyOfData" resultType="com.xxl.api.admin.core.model.BlueStarApplyfrom">
+				SELECT * 
+					FROM xxl_api_applyof
+	</select>
 
 </mapper>

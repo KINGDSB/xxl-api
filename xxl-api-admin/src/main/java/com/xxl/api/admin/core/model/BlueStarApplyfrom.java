@@ -2,11 +2,14 @@ package com.xxl.api.admin.core.model;
 
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class BlueStarApplyfrom {
 	private String id;
 	private String applyOfName;
 	private String applyOfProjectName;
 	private String applyOfPort;
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	private Timestamp applyOfDate;
 	private String applyOfStatus;
 

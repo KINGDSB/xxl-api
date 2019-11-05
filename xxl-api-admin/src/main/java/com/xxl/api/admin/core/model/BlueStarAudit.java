@@ -2,11 +2,14 @@ package com.xxl.api.admin.core.model;
 
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class BlueStarAudit {
 	private String id;
 	private String applyofId;
 	private String auditor;
 	private String bizComent;
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	private Timestamp applyDate;
 	private String auditStatus;
 	public String getId() {

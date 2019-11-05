@@ -51,7 +51,11 @@
     		<artifactId>commons-logging</artifactId>
     		<version>1.2</version>
 		</dependency>
-
+		<!-- 解决查询数据库时间一串数字问题 -->
+	<!-- <dependency>
+    	<groupId>com.fasterxml.jackson.core</groupId>
+    	<artifactId>jackson-databind</artifactId>
+	</dependency> -->
 		<!-- freemarker-starter -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

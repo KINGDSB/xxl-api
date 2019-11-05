@@ -1,6 +1,9 @@
 package com.xxl.api.admin.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,5 +43,34 @@ public class BlueStarApplyofController {
 	public ReturnT<String> applyOfJudge(@RequestBody BlueStarAudit audit,BlueStarApplyfrom apply){
 			applyOfServiceImp.setAudit(audit, apply);
 		return (audit.getAuditStatus()=="01")?new ReturnT<String>(200,"申请通过"):new ReturnT<String>(500,"申请未通过:",audit.getBizComent());
+	}
+	/**
+	 * 查询申请信息
+	 * @return
+	 */
+	@PostMapping("/applyof/selectAllApplyof")
+	@PermessionLimit(limit=false)
+	public ReturnT<List> selectApplyOf(){
+		if(applyOfServiceImp.getApplyOfData()!=null){
+			List<BlueStarApplyfrom> list = applyOfServiceImp.getApplyOfData();
+			return new ReturnT<List>(ReturnT.SUCCESS_CODE,"查询成功",list);
+		}else{
+			return new ReturnT<List>(ReturnT.FAIL_CODE,"查询失败",null);
+		}
+	}
+	/**
+	 * 查询申请日志表
+	 * @return
+	 */
+	@PostMapping("/author/selectAllAuthor")
+	@PermessionLimit(limit=false)
+	public ReturnT<List> selectAllAuthor(){
+		if(applyOfServiceImp.selectAllAuthor()!=null){
+			List<BlueStarAudit>	authorList = applyOfServiceImp.selectAllAuthor();
+			return new ReturnT<List>(ReturnT.SUCCESS_CODE,"查询成功",authorList);
+		}else{
+			return new ReturnT<List>(ReturnT.FAIL_CODE,"查询失败",null);
+		}
+		
 	}
 }
