@@ -23,6 +23,7 @@ public class BlueStarApplyOfServiceImp implements BlueStarApplyOfService{
 	BlueStarAuthorMapper authordao;
 	@Override
 	public int getApplyOfDao(BlueStarApplyfrom xxl) {
+		xxl.setId(StringUtil.getUUID());
 		xxl.setApplyOfDate(new Timestamp(System.currentTimeMillis()));
 		return applydao.addApplyOf(xxl);
 	}
@@ -47,4 +48,10 @@ public class BlueStarApplyOfServiceImp implements BlueStarApplyOfService{
 	public List<BlueStarAudit> selectAllAuthor() {
 		return authordao.getAllAuthor();
 	}
+	@Override
+	public BlueStarApplyfrom applyofDetail(String id) {
+		
+		return applydao.getApplyOfDetail(id);
+	}
+	
 }

@@ -114,7 +114,5 @@ public class IndexController {
 			int ret = xxlApiUserDao.add(xxlApiUser);
 			return (ret>0)?ReturnT.SUCCESS:ReturnT.FAIL;
 		}
-
-
 	}
 }

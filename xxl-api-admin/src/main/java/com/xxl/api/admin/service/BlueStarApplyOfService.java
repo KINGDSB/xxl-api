@@ -34,6 +34,12 @@ public interface BlueStarApplyOfService {
 	 * @return
 	 */
 	List<BlueStarAudit> selectAllAuthor();
+	/**
+	 * 查询申请详情
+	 * @param id
+	 * @return
+	 */
+	BlueStarApplyfrom applyofDetail(String id);
 
 
 }

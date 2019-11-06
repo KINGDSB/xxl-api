@@ -24,4 +24,10 @@ public interface BlueStarApplyOfMapper {
 	 * 查询所有申请
 	 */
 	List<BlueStarApplyfrom> getApplyOfData();
+	/**
+	 * 根据id查询申请详情
+	 * @param id
+	 * @return
+	 */
+	BlueStarApplyfrom getApplyOfDetail(String id);
 }

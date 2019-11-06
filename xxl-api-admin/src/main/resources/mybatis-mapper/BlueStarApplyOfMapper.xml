@@ -56,5 +56,12 @@
 				SELECT * 
 					FROM xxl_api_applyof
 	</select>
+	<select id="getApplyOfDetail" parameterType="java.lang.String" 
+			resultType="com.xxl.api.admin.core.model.BlueStarApplyfrom">
+				SELECT * 
+					FROM xxl_api_applyof
+						WHERE id = #{id}
+	</select>
+	
 
 </mapper>

@@ -3,10 +3,12 @@ package com.xxl.api.admin.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.xxl.api.admin.controller.annotation.PermessionLimit;
@@ -28,17 +30,15 @@ public class BlueStarApplyofController {
 	@PermessionLimit(limit=false)
 	public ReturnT<String> getApplyOf(@RequestBody BlueStarApplyfrom xxlApplyform){   //@RequestBody
 		int applyOfDao = applyOfServiceImp.getApplyOfDao(xxlApplyform);
-		String applyOfName = xxlApplyform.getApplyOfName();
-		System.out.println(applyOfName);
 		return (applyOfDao>0)?ReturnT.SUCCESS:ReturnT.FAIL;
 	}
 	/**
-	 * 申请日志信息，更改申请状态
+	 * 审批流程，新增审批日志信息、更改申请状态
 	 * @param audit
 	 * @param apply
 	 * @return
 	 */
-	@RequestMapping(value="/applyof/audit",method=RequestMethod.POST)
+	@RequestMapping(value="/author/audit",method=RequestMethod.POST)
 	@PermessionLimit(limit=false)
 	public ReturnT<String> applyOfJudge(@RequestBody BlueStarAudit audit,BlueStarApplyfrom apply){
 			applyOfServiceImp.setAudit(audit, apply);
@@ -71,6 +71,14 @@ public class BlueStarApplyofController {
 		}else{
 			return new ReturnT<List>(ReturnT.FAIL_CODE,"查询失败",null);
 		}
-		
 	}
+	/**
+	 * 申请详情
+	 */
+	@PostMapping("/auth/applyofDetail/{id}")
+	@PermessionLimit(limit=false)
+	public BlueStarApplyfrom applyofDetail(@PathVariable String id){
+		BlueStarApplyfrom list = applyOfServiceImp.applyofDetail(id);
+		return list;
+}
 }
