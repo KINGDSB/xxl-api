@@ -15,8 +15,9 @@ public interface BlueStarAuthorMapper {
 	int insertAudit(BlueStarAudit audit);
 	/**
 	 * 查询所有审批记录日志信息
+	 * @param audit 
 	 * @return
 	 */
-	List<BlueStarAudit> getAllAuthor();
+	List<BlueStarAudit> getAllAuthor(BlueStarAudit audit);
 
 }

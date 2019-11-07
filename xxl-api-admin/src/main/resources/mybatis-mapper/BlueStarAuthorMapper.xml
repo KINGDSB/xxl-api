@@ -45,7 +45,20 @@
 						</if>
 					</trim>
 			</insert> 
-			<select id="getAllAuthor" resultType="com.xxl.api.admin.core.model.BlueStarAudit">
+			<select id="getAllAuthor" parameterType="com.xxl.api.admin.core.model.BlueStarAudit" resultType="com.xxl.api.admin.core.model.BlueStarAudit">
 				SELECT * FROM xxl_api_audit_log
+					WHERE 1=1
+						<if test="id!=null">
+							and id=#{id}
+						</if>
+						<if test="auditor!=null and auditor!=''">
+							and auditor like concat('%', #{auditor}, '%')
+						</if>
+						<if test="auditStatus!=null">
+							and audit_status=#{auditStatus}
+						</if>
+						<if test="applyofId!=null">
+							and applyof_id=#{applyofId}
+						</if>
 			</select>
 </mapper>

@@ -26,20 +26,17 @@ public interface BlueStarApplyOfService {
 	int setAudit(BlueStarAudit audit, BlueStarApplyfrom apply);
 	/**
 	 * 查询所有申请信息
+	 * 可根据 id applyOfName applyOfStatus 动态查询
 	 * @return
 	 */
-	List<BlueStarApplyfrom> getApplyOfData();
+	List<BlueStarApplyfrom> getApplyOfData(BlueStarApplyfrom apply);
 	/**
 	 * 查询所有审批记录
 	 * @return
 	 */
-	List<BlueStarAudit> selectAllAuthor();
-	/**
-	 * 查询申请详情
-	 * @param id
-	 * @return
-	 */
-	BlueStarApplyfrom applyofDetail(String id);
+	List<BlueStarAudit> selectAllAuthor(BlueStarAudit audit);
+
+	
 
 
 }

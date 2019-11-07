@@ -45,40 +45,30 @@ public class BlueStarApplyofController {
 		return (audit.getAuditStatus()=="01")?new ReturnT<String>(200,"申请通过"):new ReturnT<String>(500,"申请未通过:",audit.getBizComent());
 	}
 	/**
-	 * 查询申请信息
+	 * 查询申请信息 可根据 id applyOfName applyOfStatus 动态查询
 	 * @return
 	 */
 	@PostMapping("/applyof/applyofAll")
 	@PermessionLimit(limit=false)
-	public ReturnT<List> selectApplyOf(){
-		if(applyOfServiceImp.getApplyOfData()!=null){
-			List<BlueStarApplyfrom> list = applyOfServiceImp.getApplyOfData();
+	public ReturnT<List> selectApplyOf(BlueStarApplyfrom apply){
+		List<BlueStarApplyfrom> list = applyOfServiceImp.getApplyOfData(apply);
+		if(list!=null&&!list.isEmpty()){
 			return new ReturnT<List>(ReturnT.SUCCESS_CODE,"查询成功",list);
-		}else{
-			return new ReturnT<List>(ReturnT.FAIL_CODE,"查询失败",null);
 		}
+		return new ReturnT<List>(ReturnT.FAIL_CODE,"查询失败");
 	}
+	
 	/**
-	 * 查询申请日志表
+	 * 查询申请日志表 可根据id  auditor applyofId auditStatus 动态查询
 	 * @return
 	 */
 	@PostMapping("/author/authorAllLog")
 	@PermessionLimit(limit=false)
-	public ReturnT<List> selectAllAuthor(){
-		if(applyOfServiceImp.selectAllAuthor()!=null){
-			List<BlueStarAudit>	authorList = applyOfServiceImp.selectAllAuthor();
-			return new ReturnT<List>(ReturnT.SUCCESS_CODE,"查询成功",authorList);
-		}else{
-			return new ReturnT<List>(ReturnT.FAIL_CODE,"查询失败",null);
+	public ReturnT<List> selectAllAuthor(BlueStarAudit audit){
+		List<BlueStarAudit>	list = applyOfServiceImp.selectAllAuthor(audit);
+		if(list!=null&&!list.isEmpty()){
+			return new ReturnT<List>(ReturnT.SUCCESS_CODE,"查询成功",list);
 		}
+		return new ReturnT<List>(ReturnT.FAIL_CODE,"查询失败");
 	}
-	/**
-	 * 申请详情
-	 */
-	@PostMapping("/auth/applyofDetail/{id}")
-	@PermessionLimit(limit=false)
-	public BlueStarApplyfrom applyofDetail(@PathVariable String id){
-		BlueStarApplyfrom list = applyOfServiceImp.applyofDetail(id);
-		return list;
-}
 }

@@ -41,17 +41,11 @@ public class BlueStarApplyOfServiceImp implements BlueStarApplyOfService{
 		return authordao.insertAudit(audit);//新增审批日志信息
 	}
 	@Override
-	public List<BlueStarApplyfrom> getApplyOfData() {
-		return  applydao.getApplyOfData();
+	public List<BlueStarApplyfrom> getApplyOfData(BlueStarApplyfrom apply) {
+		return  applydao.getApplyOfData(apply);
 	}
 	@Override
-	public List<BlueStarAudit> selectAllAuthor() {
-		return authordao.getAllAuthor();
+	public List<BlueStarAudit> selectAllAuthor(BlueStarAudit audit) {
+		return authordao.getAllAuthor(audit);
 	}
-	@Override
-	public BlueStarApplyfrom applyofDetail(String id) {
-		
-		return applydao.getApplyOfDetail(id);
-	}
-	
 }

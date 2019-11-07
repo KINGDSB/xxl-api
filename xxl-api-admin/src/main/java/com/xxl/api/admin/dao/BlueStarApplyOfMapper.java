@@ -22,12 +22,9 @@ public interface BlueStarApplyOfMapper {
 	void updataAgreement(BlueStarApplyfrom apply);
 	/**
 	 * 查询所有申请
+	 * 可根据 id applyOfName applyOfStatus 动态查询
+	 * @param apply 
 	 */
-	List<BlueStarApplyfrom> getApplyOfData();
-	/**
-	 * 根据id查询申请详情
-	 * @param id
-	 * @return
-	 */
-	BlueStarApplyfrom getApplyOfDetail(String id);
+	List<BlueStarApplyfrom> getApplyOfData(BlueStarApplyfrom apply);
+	
 }

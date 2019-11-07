@@ -52,16 +52,19 @@
 				WHERE 
 				c.id =#{id,jdbcType=VARCHAR}
 	</update>
-	<select id="getApplyOfData" resultType="com.xxl.api.admin.core.model.BlueStarApplyfrom">
+	<select id="getApplyOfData"  parameterType="com.xxl.api.admin.core.model.BlueStarApplyfrom"
+				 resultType="com.xxl.api.admin.core.model.BlueStarApplyfrom">
 				SELECT * 
 					FROM xxl_api_applyof
+					WHERE 1=1
+					<if test="id!=null">
+						and id =#{id}
+					</if>
+					<if test="applyOfName != null and applyOfName !=''">
+     				 and apply_of_name like concat('%', #{applyOfName}, '%')
+   				    </if>
+   				    <if test="applyOfStatus!=null">
+						and apply_of_status =#{applyOfStatus}
+					</if>
 	</select>
-	<select id="getApplyOfDetail" parameterType="java.lang.String" 
-			resultType="com.xxl.api.admin.core.model.BlueStarApplyfrom">
-				SELECT * 
-					FROM xxl_api_applyof
-						WHERE id = #{id}
-	</select>
-	
-
 </mapper>
