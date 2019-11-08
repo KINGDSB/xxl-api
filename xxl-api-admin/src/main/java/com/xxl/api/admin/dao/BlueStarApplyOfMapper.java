@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.xxl.api.admin.core.model.BlueStarAudit;
-import com.xxl.api.admin.core.model.BlueStarApplyfrom;
+import com.xxl.api.admin.core.model.BlueStarAuditDTO;
+import com.xxl.api.admin.core.model.BlueStarApplyfromDTO;
 @Mapper
 public interface BlueStarApplyOfMapper {
 	/**
@@ -14,17 +14,17 @@ public interface BlueStarApplyOfMapper {
 	 * @param xxlApplyform
 	 * @return
 	 */
-	int addApplyOf(BlueStarApplyfrom xxlApplyform);
+	int addApplyOf(BlueStarApplyfromDTO xxlApplyform);
 	/**
 	 * 更新申请状态信息
 	 * @param apply 
 	 */
-	void updataAgreement(BlueStarApplyfrom apply);
+	void updataAgreement(BlueStarApplyfromDTO apply);
 	/**
 	 * 查询所有申请
 	 * 可根据 id applyOfName applyOfStatus 动态查询
 	 * @param apply 
 	 */
-	List<BlueStarApplyfrom> getApplyOfData(BlueStarApplyfrom apply);
+	List<BlueStarApplyfromDTO> getApplyOfData(BlueStarApplyfromDTO apply);
 	
 }

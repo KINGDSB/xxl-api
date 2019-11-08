@@ -4,13 +4,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.xxl.api.admin.core.model.BlueStarPort;
+import com.xxl.api.admin.core.model.BlueStarPortDTO;
 @Service
 public interface BlueStarPortOfService {
 	/***
 	 * 获取节点信息
 	 * @return
 	 */
-	List<BlueStarPort> getPort();
+	List<BlueStarPortDTO> getPort(BlueStarPortDTO port);
 
 }

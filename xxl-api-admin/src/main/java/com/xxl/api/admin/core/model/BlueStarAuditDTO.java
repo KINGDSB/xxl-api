@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class BlueStarAudit {
+public class BlueStarAuditDTO {
 	private String id;
 	private String applyofId;
 	private String auditor;

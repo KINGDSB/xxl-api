@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xxl.api.admin.dao.BlueStarAuthorMapper">
-      <insert id="insertAudit" parameterType="com.xxl.api.admin.core.model.BlueStarAudit" >
+      <insert id="insertAudit" parameterType="com.xxl.api.admin.core.model.BlueStarAuditDTO" >
 				INSERT INTO xxl_api_audit_log 
 					<trim prefix="(" suffix=")" suffixOverrides=",">
 					<if test="id !=null">
@@ -45,7 +45,7 @@
 						</if>
 					</trim>
 			</insert> 
-			<select id="getAllAuthor" parameterType="com.xxl.api.admin.core.model.BlueStarAudit" resultType="com.xxl.api.admin.core.model.BlueStarAudit">
+			<select id="getAllAuthor" parameterType="com.xxl.api.admin.core.model.BlueStarAuditDTO" resultType="com.xxl.api.admin.core.model.BlueStarAuditDTO">
 				SELECT * FROM xxl_api_audit_log
 					WHERE 1=1
 						<if test="id!=null">

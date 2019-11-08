@@ -61,8 +61,6 @@ public class XxlApiTestController {
 	public String index(Model model,
 						int documentId,
 						@RequestParam(required = false, defaultValue = "0") int testId) {
-
-
 		// params
 		XxlApiDocument document = document = xxlApiDocumentDao.load(documentId);
 		if (document == null) {

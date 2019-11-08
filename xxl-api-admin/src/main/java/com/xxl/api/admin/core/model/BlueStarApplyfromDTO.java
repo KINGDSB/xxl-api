@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class BlueStarApplyfrom {
+public class BlueStarApplyfromDTO {
 	private String id;
 	private String applyOfName;
 	private String applyOfProjectName;

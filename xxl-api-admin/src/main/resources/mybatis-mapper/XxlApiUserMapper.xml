@@ -5,6 +5,7 @@
 	
 	<resultMap id="XxlApiUser" type="com.xxl.api.admin.core.model.XxlApiUser" >
 		<result column="id" property="id" />
+		<result column="pid" property="pid" />
 		<result column="username" property="userName" />
 	    <result column="password" property="password" />
 	    <result column="type" property="type" />
@@ -16,7 +17,8 @@
 		t.username,
 		t.password,
 		t.type,
-		t.permission_biz
+		t.permission_biz,
+		t.pid
 	</sql>
 
 	<insert id="add" parameterType="com.xxl.api.admin.core.model.XxlApiUser" useGeneratedKeys="true" keyProperty="id" >
@@ -24,12 +26,14 @@
 			userName,
 			password,
 			`type`,
-			permission_biz
+			permission_biz,
+			pid
 		) VALUES (
 			#{userName},
 			#{password},
 			#{type},
-			#{permissionBiz}
+			#{permissionBiz},
+			#{pid},
 		);
 	</insert>
 
@@ -57,6 +61,12 @@
 		SELECT <include refid="Base_Column_List" />
 		FROM xxl_api_user AS t
 		WHERE t.id = #{id}
+	</select>
+	
+	<select id="findByPid" parameterType="java.lang.String" resultMap="XxlApiUser">
+		SELECT <include refid="Base_Column_List" />
+		FROM xxl_api_user AS t
+		WHERE t.pid = #{pid}
 	</select>
 
 	<select id="loadAll" parameterType="java.lang.Integer" resultMap="XxlApiUser">
@@ -92,5 +102,12 @@
 			</if>
 		</trim>
 	</select>
+	
+	<update id="setPid" parameterType="com.xxl.api.admin.core.model.XxlApiUser" >
+		UPDATE xxl_api_user
+		SET
+			pid = #{pid}
+		WHERE id = #{id}
+	</update>
 
 </mapper>

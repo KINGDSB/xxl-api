@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.xxl.api.admin.core.model.BlueStarAudit;
+import com.xxl.api.admin.core.model.BlueStarAuditDTO;
 @Mapper
 public interface BlueStarAuthorMapper {
 	/**
@@ -12,12 +12,12 @@ public interface BlueStarAuthorMapper {
 	 * @param audit
 	 * @return
 	 */
-	int insertAudit(BlueStarAudit audit);
+	int insertAudit(BlueStarAuditDTO audit);
 	/**
 	 * 查询所有审批记录日志信息
 	 * @param audit 
 	 * @return
 	 */
-	List<BlueStarAudit> getAllAuthor(BlueStarAudit audit);
+	List<BlueStarAuditDTO> getAllAuthor(BlueStarAuditDTO audit);
 
 }

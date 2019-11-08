@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.xxl.api.admin.controller.annotation.PermessionLimit;
-import com.xxl.api.admin.core.model.BlueStarAudit;
+import com.xxl.api.admin.core.model.BlueStarAuditDTO;
 import com.xxl.api.admin.core.model.ReturnT;
 import com.xxl.api.admin.service.impl.BlueStarApplyOfServiceImp;
-import com.xxl.api.admin.core.model.BlueStarApplyfrom;
+import com.xxl.api.admin.core.model.BlueStarApplyfromDTO;
 
 @RestController
 public class BlueStarApplyofController {
@@ -28,7 +28,7 @@ public class BlueStarApplyofController {
 	 */
 	@RequestMapping(value="/auth/addApplyof",method=RequestMethod.POST)
 	@PermessionLimit(limit=false)
-	public ReturnT<String> getApplyOf(@RequestBody BlueStarApplyfrom xxlApplyform){   //@RequestBody
+	public ReturnT<String> getApplyOf(@RequestBody BlueStarApplyfromDTO xxlApplyform){   //@RequestBody
 		int applyOfDao = applyOfServiceImp.getApplyOfDao(xxlApplyform);
 		return (applyOfDao>0)?ReturnT.SUCCESS:ReturnT.FAIL;
 	}
@@ -40,7 +40,7 @@ public class BlueStarApplyofController {
 	 */
 	@RequestMapping(value="/author/audit",method=RequestMethod.POST)
 	@PermessionLimit(limit=false)
-	public ReturnT<String> applyOfJudge(@RequestBody BlueStarAudit audit,BlueStarApplyfrom apply){
+	public ReturnT<String> applyOfJudge(@RequestBody BlueStarAuditDTO audit,BlueStarApplyfromDTO apply){
 			applyOfServiceImp.setAudit(audit, apply);
 		return (audit.getAuditStatus()=="01")?new ReturnT<String>(200,"申请通过"):new ReturnT<String>(500,"申请未通过:",audit.getBizComent());
 	}
@@ -50,8 +50,8 @@ public class BlueStarApplyofController {
 	 */
 	@PostMapping("/applyof/applyofAll")
 	@PermessionLimit(limit=false)
-	public ReturnT<List> selectApplyOf(BlueStarApplyfrom apply){
-		List<BlueStarApplyfrom> list = applyOfServiceImp.getApplyOfData(apply);
+	public ReturnT<List> selectApplyOf(BlueStarApplyfromDTO apply){
+		List<BlueStarApplyfromDTO> list = applyOfServiceImp.getApplyOfData(apply);
 		if(list!=null&&!list.isEmpty()){
 			return new ReturnT<List>(ReturnT.SUCCESS_CODE,"查询成功",list);
 		}
@@ -64,11 +64,12 @@ public class BlueStarApplyofController {
 	 */
 	@PostMapping("/author/authorAllLog")
 	@PermessionLimit(limit=false)
-	public ReturnT<List> selectAllAuthor(BlueStarAudit audit){
-		List<BlueStarAudit>	list = applyOfServiceImp.selectAllAuthor(audit);
+	public ReturnT<List> selectAllAuthor(BlueStarAuditDTO audit){
+		List<BlueStarAuditDTO>	list = applyOfServiceImp.selectAllAuthor(audit);
 		if(list!=null&&!list.isEmpty()){
 			return new ReturnT<List>(ReturnT.SUCCESS_CODE,"查询成功",list);
 		}
 		return new ReturnT<List>(ReturnT.FAIL_CODE,"查询失败");
 	}
+	
 }

@@ -1,15 +1,16 @@
 package com.xxl.api.admin.core.model;
 
-public class BlueStarPort {
-	private int ID;
+public class BlueStarPortDTO {
+	private String id;
 	private String portName;
 	private String portGroupName;
 	private String portUrl;
-	public int getID() {
-		return ID;
+	
+	public String getId() {
+		return id;
 	}
-	public void setID(int iD) {
-		ID = iD;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getPortName() {
 		return portName;

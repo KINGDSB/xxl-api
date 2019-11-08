@@ -11,7 +11,16 @@ public class XxlApiUser {
     private int type;               // 用户类型：0-普通用户、1-管理员
     private String permissionBiz;  // 业务线权限，多个逗号分隔
     private String organization;
-    public String getOrganization() {
+    private String pid;
+	public String getPid() {
+		return pid;
+	}
+
+	public void setPid(String pid) {
+		this.pid = pid;
+	}
+
+	public String getOrganization() {
 		return organization;
 	}
 

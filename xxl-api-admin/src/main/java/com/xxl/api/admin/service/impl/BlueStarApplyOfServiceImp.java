@@ -7,11 +7,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.xxl.api.admin.core.model.BlueStarAudit;
-import com.xxl.api.admin.core.model.BlueStarPort;
-import com.xxl.api.admin.core.model.ReturnT;
+import com.xxl.api.admin.core.model.BlueStarAuditDTO;
 import com.xxl.api.admin.core.util.StringUtil;
-import com.xxl.api.admin.core.model.BlueStarApplyfrom;
+import com.xxl.api.admin.core.model.BlueStarApplyfromDTO;
 import com.xxl.api.admin.dao.BlueStarApplyOfMapper;
 import com.xxl.api.admin.dao.BlueStarAuthorMapper;
 import com.xxl.api.admin.service.BlueStarApplyOfService;
@@ -22,13 +20,13 @@ public class BlueStarApplyOfServiceImp implements BlueStarApplyOfService{
 	@Autowired
 	BlueStarAuthorMapper authordao;
 	@Override
-	public int getApplyOfDao(BlueStarApplyfrom xxl) {
+	public int getApplyOfDao(BlueStarApplyfromDTO xxl) {
 		xxl.setId(StringUtil.getUUID());
 		xxl.setApplyOfDate(new Timestamp(System.currentTimeMillis()));
 		return applydao.addApplyOf(xxl);
 	}
 	@Override
-	public int setAudit(BlueStarAudit audit,BlueStarApplyfrom apply) {
+	public int setAudit(BlueStarAuditDTO audit,BlueStarApplyfromDTO apply) {
 		audit.setId(StringUtil.getUUID());
 		audit.setApplyDate(new Timestamp(System.currentTimeMillis()));
 		if(audit.getAuditStatus()=="01"){
@@ -41,11 +39,11 @@ public class BlueStarApplyOfServiceImp implements BlueStarApplyOfService{
 		return authordao.insertAudit(audit);//新增审批日志信息
 	}
 	@Override
-	public List<BlueStarApplyfrom> getApplyOfData(BlueStarApplyfrom apply) {
+	public List<BlueStarApplyfromDTO> getApplyOfData(BlueStarApplyfromDTO apply) {
 		return  applydao.getApplyOfData(apply);
 	}
 	@Override
-	public List<BlueStarAudit> selectAllAuthor(BlueStarAudit audit) {
+	public List<BlueStarAuditDTO> selectAllAuthor(BlueStarAuditDTO audit) {
 		return authordao.getAllAuthor(audit);
 	}
 }

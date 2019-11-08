@@ -101,7 +101,6 @@ public class IndexController {
 	@PermessionLimit(limit=false)
 //	@ResponseBody
 	public ReturnT<String> Register(@RequestBody XxlApiUser xxlApiUser){
-		
 		// valid
 		XxlApiUser existUser = xxlApiUserDao.findByUserName(xxlApiUser.getUserName());
 		if (existUser != null) {

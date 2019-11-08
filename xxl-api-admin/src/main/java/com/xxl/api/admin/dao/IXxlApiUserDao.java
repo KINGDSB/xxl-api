@@ -1,5 +1,6 @@
 package com.xxl.api.admin.dao;
 
+import com.xxl.api.admin.core.model.BlueStarUserProfileDTO;
 import com.xxl.api.admin.core.model.XxlApiUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -21,6 +22,8 @@ public interface IXxlApiUserDao {
     public XxlApiUser findByUserName(@Param("userName") String userName);
 
     public XxlApiUser findById(@Param("id") int id);
+    
+    public XxlApiUser findByPid(@Param("pid") String pid);
 
     public List<XxlApiUser> loadAll();
 
@@ -32,4 +35,10 @@ public interface IXxlApiUserDao {
                              @Param("pagesize") int pagesize,
                              @Param("userName") String userName,
                              @Param("type") int type);
+    /**
+     * 绑定Pid
+     * @param user
+     */
+	public void setPid(XxlApiUser user);
+    
 }

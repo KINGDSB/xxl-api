@@ -6,10 +6,14 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.xxl.api.admin.core.model.BlueStarPort;
+import com.xxl.api.admin.core.model.BlueStarPortDTO;
 @Mapper
 public interface BlueStarPortMapper {
-
-	List<BlueStarPort> getPort();
+	/**
+	 * 获取接口信息
+	 * @param port
+	 * @return
+	 */
+	List<BlueStarPortDTO> getPort(BlueStarPortDTO port);
 
 }

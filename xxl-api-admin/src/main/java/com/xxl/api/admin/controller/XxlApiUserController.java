@@ -2,13 +2,16 @@ package com.xxl.api.admin.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.xxl.api.admin.controller.annotation.PermessionLimit;
+import com.xxl.api.admin.core.model.BlueStarUserProfileDTO;
 import com.xxl.api.admin.core.model.ReturnT;
 import com.xxl.api.admin.core.model.XxlApiBiz;
 import com.xxl.api.admin.core.model.XxlApiUser;
 import com.xxl.api.admin.core.util.TokenUtils;
 import com.xxl.api.admin.core.util.tool.StringTool;
+import com.xxl.api.admin.dao.BlueStarUserProfileMapper;
 import com.xxl.api.admin.dao.IXxlApiBizDao;
 import com.xxl.api.admin.dao.IXxlApiUserDao;
+import com.xxl.api.admin.service.impl.BlueStarUserServiceImp;
 import com.xxl.api.admin.service.impl.LoginService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,12 +34,13 @@ import java.util.Map;
 @Controller
 @RequestMapping("/user")
 public class XxlApiUserController {
-
 	@Resource
 	private IXxlApiUserDao xxlApiUserDao;
 	@Resource
 	private IXxlApiBizDao xxlApiBizDao;
-
+	@Resource
+	private BlueStarUserServiceImp userServiceImp;
+	
 	@RequestMapping
     @PermessionLimit(superUser = true)
 	public String index(Model model) {
@@ -537,7 +541,7 @@ public class XxlApiUserController {
 
 		return ReturnT.SUCCESS;
 	}
-
+	
 	@RequestMapping("/updatePermissionBiz")
 	@ResponseBody
 	@PermessionLimit(superUser = true)
@@ -554,5 +558,33 @@ public class XxlApiUserController {
 
 		return ReturnT.SUCCESS;
 	}
-
+	/**
+	 * 完善用户信息
+	 * 
+	 */
+	@RequestMapping(value="/auth/addUserProfile",method=RequestMethod.POST)
+	@PermessionLimit(limit=false)
+	public ReturnT<String> addUserProfile(XxlApiUser user,BlueStarUserProfileDTO profile){
+		int applyOfDao = userServiceImp.UserProfile(user,profile);
+		if(applyOfDao==400){
+			return new ReturnT<String>(400,"更新成功") ;
+		}else{
+			return new ReturnT<String>(200,"新增成功") ;
+		}
+	}
+	/**
+	 * 修改用户信息	
+	 * 
+	 */
+	@RequestMapping(value="/auth/updateUserProfile",method=RequestMethod.POST)
+	@PermessionLimit(limit=false)
+	public ReturnT<String> updateUserProfile(XxlApiUser user,BlueStarUserProfileDTO profile){
+		int applyOfDao = userServiceImp.UserProfile(user,profile);
+		if(applyOfDao==400){
+			return new ReturnT<String>(400,"更新成功") ;
+		}else{
+			return new ReturnT<String>(200,"新增成功") ;
+		}
+		
+	}
 }
