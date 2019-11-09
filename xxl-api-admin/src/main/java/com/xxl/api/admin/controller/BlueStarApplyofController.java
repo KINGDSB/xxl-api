@@ -14,13 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.xxl.api.admin.controller.annotation.PermessionLimit;
 import com.xxl.api.admin.core.model.BlueStarAuditDTO;
 import com.xxl.api.admin.core.model.ReturnT;
-import com.xxl.api.admin.service.impl.BlueStarApplyOfServiceImp;
+import com.xxl.api.admin.service.impl.BlueStarApplyOfServiceImpl;
 import com.xxl.api.admin.core.model.BlueStarApplyfromDTO;
 
 @RestController
 public class BlueStarApplyofController {
 	@Autowired
-	BlueStarApplyOfServiceImp  applyOfServiceImp;
+	BlueStarApplyOfServiceImpl  applyOfServiceImp;
+	
 	/**
 	 * 新增申请信息
 	 * @param xxlApplyform
@@ -29,9 +30,10 @@ public class BlueStarApplyofController {
 	@RequestMapping(value="/auth/addApplyof",method=RequestMethod.POST)
 	@PermessionLimit(limit=false)
 	public ReturnT<String> getApplyOf(@RequestBody BlueStarApplyfromDTO xxlApplyform){   //@RequestBody
-		int applyOfDao = applyOfServiceImp.getApplyOfDao(xxlApplyform);
+		 int applyOfDao = applyOfServiceImp.getApplyOfDao(xxlApplyform);
 		return (applyOfDao>0)?ReturnT.SUCCESS:ReturnT.FAIL;
 	}
+	
 	/**
 	 * 审批流程，新增审批日志信息、更改申请状态
 	 * @param audit
@@ -41,9 +43,10 @@ public class BlueStarApplyofController {
 	@RequestMapping(value="/author/audit",method=RequestMethod.POST)
 	@PermessionLimit(limit=false)
 	public ReturnT<String> applyOfJudge(@RequestBody BlueStarAuditDTO audit,BlueStarApplyfromDTO apply){
-			applyOfServiceImp.setAudit(audit, apply);
-		return (audit.getAuditStatus()=="01")?new ReturnT<String>(200,"申请通过"):new ReturnT<String>(500,"申请未通过:",audit.getBizComent());
+		applyOfServiceImp.setAudit(audit, apply);
+		return (audit.getAuditStatus()=="01")?new ReturnT<String>(200,ReturnT.APPLY_PASS):new ReturnT<String>(500,ReturnT.APPLY_NOT_PASS,audit.getBizComent());
 	}
+	
 	/**
 	 * 查询申请信息 可根据 id applyOfName applyOfStatus 动态查询
 	 * @return
@@ -53,9 +56,9 @@ public class BlueStarApplyofController {
 	public ReturnT<List> selectApplyOf(BlueStarApplyfromDTO apply){
 		List<BlueStarApplyfromDTO> list = applyOfServiceImp.getApplyOfData(apply);
 		if(list!=null&&!list.isEmpty()){
-			return new ReturnT<List>(ReturnT.SUCCESS_CODE,"查询成功",list);
+			return new ReturnT<List>(ReturnT.SUCCESS_CODE,ReturnT.SELECT_SUCCESS,list);
 		}
-		return new ReturnT<List>(ReturnT.FAIL_CODE,"查询失败");
+		return new ReturnT<List>(ReturnT.FAIL_CODE,ReturnT.SELECT_FAIL);
 	}
 	
 	/**
@@ -67,9 +70,9 @@ public class BlueStarApplyofController {
 	public ReturnT<List> selectAllAuthor(BlueStarAuditDTO audit){
 		List<BlueStarAuditDTO>	list = applyOfServiceImp.selectAllAuthor(audit);
 		if(list!=null&&!list.isEmpty()){
-			return new ReturnT<List>(ReturnT.SUCCESS_CODE,"查询成功",list);
+			return new ReturnT<List>(ReturnT.SUCCESS_CODE,ReturnT.SELECT_SUCCESS,list);
 		}
-		return new ReturnT<List>(ReturnT.FAIL_CODE,"查询失败");
+		return new ReturnT<List>(ReturnT.FAIL_CODE,ReturnT.SELECT_FAIL);
 	}
 	
 }

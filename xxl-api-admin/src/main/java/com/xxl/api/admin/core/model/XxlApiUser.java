@@ -5,7 +5,7 @@ package com.xxl.api.admin.core.model;
  */
 public class XxlApiUser {
 
-    private int id;                 // 用户ID
+    private Integer id;                 // 用户ID
     private String userName;        // 账号
     private String password;        // 密码
     private int type;               // 用户类型：0-普通用户、1-管理员

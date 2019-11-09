@@ -11,7 +11,7 @@ import com.xxl.api.admin.core.util.tool.StringTool;
 import com.xxl.api.admin.dao.BlueStarUserProfileMapper;
 import com.xxl.api.admin.dao.IXxlApiBizDao;
 import com.xxl.api.admin.dao.IXxlApiUserDao;
-import com.xxl.api.admin.service.impl.BlueStarUserServiceImp;
+import com.xxl.api.admin.service.impl.BlueStarUserServiceImpl;
 import com.xxl.api.admin.service.impl.LoginService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,7 +39,7 @@ public class XxlApiUserController {
 	@Resource
 	private IXxlApiBizDao xxlApiBizDao;
 	@Resource
-	private BlueStarUserServiceImp userServiceImp;
+	private BlueStarUserServiceImpl userServiceImp;
 	
 	@RequestMapping
     @PermessionLimit(superUser = true)

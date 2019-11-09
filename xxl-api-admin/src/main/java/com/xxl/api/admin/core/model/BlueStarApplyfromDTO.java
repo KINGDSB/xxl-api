@@ -1,10 +1,13 @@
 package com.xxl.api.admin.core.model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class BlueStarApplyfromDTO {
+import lombok.Data;
+@Data
+public class BlueStarApplyfromDTO implements Serializable{
 	private String id;
 	private String applyOfName;
 	private String applyOfProjectName;

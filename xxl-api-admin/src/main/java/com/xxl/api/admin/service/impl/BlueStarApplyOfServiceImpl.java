@@ -14,7 +14,7 @@ import com.xxl.api.admin.dao.BlueStarApplyOfMapper;
 import com.xxl.api.admin.dao.BlueStarAuthorMapper;
 import com.xxl.api.admin.service.BlueStarApplyOfService;
 @Service
-public class BlueStarApplyOfServiceImp implements BlueStarApplyOfService{
+public class BlueStarApplyOfServiceImpl implements BlueStarApplyOfService{
 	@Autowired
 	BlueStarApplyOfMapper applydao;
 	@Autowired

@@ -10,7 +10,7 @@ import com.xxl.api.admin.dao.BlueStarPortMapper;
 
 import com.xxl.api.admin.service.BlueStarPortOfService;
 @Service
-public class BlueStarPortServiceImp implements BlueStarPortOfService{
+public class BlueStarPortServiceImpl implements BlueStarPortOfService{
 	@Autowired
 	BlueStarPortMapper blueStarPortDao;
 	@Override

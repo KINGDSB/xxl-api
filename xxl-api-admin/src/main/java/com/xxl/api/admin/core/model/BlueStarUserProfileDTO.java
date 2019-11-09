@@ -1,6 +1,10 @@
 package com.xxl.api.admin.core.model;
 
-public class BlueStarUserProfileDTO {
+import java.io.Serializable;
+
+import lombok.Data;
+@Data
+public class BlueStarUserProfileDTO implements Serializable{
 	private String userId;
 	private String name;
 	private String address ;

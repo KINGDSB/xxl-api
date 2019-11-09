@@ -40,7 +40,6 @@ public class IndexController {
 	public ReturnT<String> index(Model model, HttpServletRequest request) {
 		XxlApiUser loginUser = loginService.ifLogin(request);
 		if (loginUser == null) {
-
 //			return "redirect:/toLogin";
 			return new ReturnT<String>(ReturnT.FAIL_CODE,"跳转至登陆");
 		}
@@ -50,10 +49,7 @@ public class IndexController {
 
 	@RequestMapping("/toLogin")
 	@PermessionLimit(limit=false)
-
-	  //原返回值String
-
-	public ReturnT<String> toLogin(Model model, HttpServletRequest request) {
+	public ReturnT<String> toLogin(Model model, HttpServletRequest request) {  //原返回值String
 		XxlApiUser loginUser = loginService.ifLogin(request);
 		if (loginUser != null) {
 //			return "redirect:/";

@@ -1,6 +1,10 @@
 package com.xxl.api.admin.core.model;
 
-public class BlueStarPortDTO {
+import java.io.Serializable;
+
+import lombok.Data;
+@Data
+public class BlueStarPortDTO implements Serializable{
 	private String id;
 	private String portName;
 	private String portGroupName;

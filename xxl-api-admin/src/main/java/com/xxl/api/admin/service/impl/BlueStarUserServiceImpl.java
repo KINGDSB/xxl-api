@@ -12,7 +12,7 @@ import com.xxl.api.admin.dao.IXxlApiUserDao;
 import com.xxl.api.admin.service.BlueStarUserService;
 
 @Service
-public class BlueStarUserServiceImp implements BlueStarUserService {
+public class BlueStarUserServiceImpl implements BlueStarUserService {
 	@Resource
 	private BlueStarUserProfileMapper userProfileMapper;
 	@Resource
