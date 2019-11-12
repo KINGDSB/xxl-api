@@ -2,7 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xxl.api.admin.dao.BlueStarApplyOfMapper">
-      <insert id="addApplyOf" parameterType="com.xxl.api.admin.core.model.BlueStarApplyfromDTO">
+        <sql id="Base_Column_List">
+            id,apply_of_name,apply_of_project_name,apply_of_port,apply_of_date,apply_of_status
+        </sql>
+        <insert id="addApplyOf" parameterType="com.xxl.api.admin.core.model.BlueStarApplyfromDTO">
              INSERT INTO xxl_api_applyof 
              <trim prefix="(" suffix=")" suffixOverrides=",">
              <if test="id != null">
@@ -54,9 +57,12 @@
 	</update>
 	<select id="getApplyOfData"  parameterType="com.xxl.api.admin.core.model.BlueStarApplyfromDTO"
 				 resultType="com.xxl.api.admin.core.model.BlueStarApplyfromDTO">
-				SELECT * 
-					FROM xxl_api_applyof
-					WHERE 1=1
+				SELECT 
+				    <include refid="Base_Column_List" /> 
+				FROM 
+					xxl_api_applyof
+				WHERE 
+					 1=1
 					<if test="id!=null">
 						and id =#{id}
 					</if>

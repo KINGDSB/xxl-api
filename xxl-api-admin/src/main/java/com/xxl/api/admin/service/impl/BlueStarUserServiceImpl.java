@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.xxl.api.admin.core.model.BlueStarUserProfileDTO;
+import com.xxl.api.admin.core.model.ReturnT;
 import com.xxl.api.admin.core.model.XxlApiUser;
 import com.xxl.api.admin.core.util.StringUtil;
 import com.xxl.api.admin.dao.BlueStarUserProfileMapper;
@@ -20,18 +21,17 @@ public class BlueStarUserServiceImpl implements BlueStarUserService {
 
 	@Override
 	public int UserProfile(XxlApiUser user, BlueStarUserProfileDTO profile) {
-		user.setPid(profile.getUserId());
-		// profile.setUserId(user.getId());
+		/* 判断userId是否存在 存在就更新 否则就新增并绑定user表*/
 		BlueStarUserProfileDTO existProfile = userProfileMapper.existProfileUserId(profile.getUserId());
-		// XxlApiUser existUser = xxlApiUserDao.findByPid(user.getPid());
 		if (existProfile != null) {
 			userProfileMapper.updateProfile(profile);
-			return 400;
+			return ReturnT.UPDARE_CODE;
 		} else {
 			profile.setUserId(StringUtil.getUUID());
+			user.setPid(profile.getUserId());
 			xxlApiUserDao.setPid(user);
 			userProfileMapper.addUserProfile(profile);
-			return 200;
+			return ReturnT.INSERT_CODE;
 		}
 	}
 }

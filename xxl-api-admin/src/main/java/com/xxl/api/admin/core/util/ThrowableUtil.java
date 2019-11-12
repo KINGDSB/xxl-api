@@ -1,4 +1,4 @@
-package com.xxl.api.admin.core.util;
+ package com.xxl.api.admin.core.util;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

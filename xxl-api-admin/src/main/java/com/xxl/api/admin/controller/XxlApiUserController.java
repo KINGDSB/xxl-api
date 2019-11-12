@@ -566,10 +566,10 @@ public class XxlApiUserController {
 	@PermessionLimit(limit=false)
 	public ReturnT<String> addUserProfile(XxlApiUser user,BlueStarUserProfileDTO profile){
 		int applyOfDao = userServiceImp.UserProfile(user,profile);
-		if(applyOfDao==400){
-			return new ReturnT<String>(400,"更新成功") ;
-		}else{
-			return new ReturnT<String>(200,"新增成功") ;
+		if (applyOfDao==ReturnT.INSERT_CODE) {
+			return new ReturnT<String>(ReturnT.INSERT_CODE,"新增成功") ;
+		} else {
+		    return new ReturnT<String>(ReturnT.FAIL_CODE,"新增失败") ;
 		}
 	}
 	/**
@@ -580,10 +580,10 @@ public class XxlApiUserController {
 	@PermessionLimit(limit=false)
 	public ReturnT<String> updateUserProfile(XxlApiUser user,BlueStarUserProfileDTO profile){
 		int applyOfDao = userServiceImp.UserProfile(user,profile);
-		if(applyOfDao==400){
-			return new ReturnT<String>(400,"更新成功") ;
-		}else{
-			return new ReturnT<String>(200,"新增成功") ;
+		if (applyOfDao==ReturnT.UPDARE_CODE) {
+			return new ReturnT<String>(ReturnT.UPDARE_CODE,"更新成功") ;
+		} else {
+			return new ReturnT<String>(ReturnT.FAIL_CODE,"更新失败") ;
 		}
 		
 	}

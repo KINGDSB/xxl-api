@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xxl.api.admin.dao.BlueStarPortMapper">
-      <select id="getPort" parameterType="com.xxl.api.admin.core.model.BlueStarPortDTO" 
+     <mapper namespace="com.xxl.api.admin.dao.BlueStarPortMapper">
+		        <sql id="Base_Column_List">
+		            id,port_name,port_group_name,port_url
+		        </sql>
+     <select id="getPort" parameterType="com.xxl.api.admin.core.model.BlueStarPortDTO" 
       	resultType="com.xxl.api.admin.core.model.BlueStarPortDTO">
-		SELECT 
-			*
-		FROM 
-			xxl_api_port
-		WHERE 
-			1=1
-		<if test="id!=null">
-			and id=#{id}
-		</if>	
-		<if test="portName!=null">
-		 	and port_name like concat('%', #{portName}, '%')
-		</if>
-		<if test="portGroupName!=null">
-			and port_group_name like concat('%', #{portGroupName}, '%')
-		</if>
-		<if test="portUrl!=null">
-			and port_url=#{portUrl}
-		</if>
-	</select>
+			SELECT 
+				<include refid="Base_Column_List" /> 
+			FROM 
+				xxl_api_port
+			WHERE 
+				1=1
+				<if test="id!=null">
+					and id=#{id}
+				</if>	
+				<if test="portName!=null">
+				 	and port_name like concat('%', #{portName}, '%')
+				</if>
+				<if test="portGroupName!=null">
+					and port_group_name like concat('%', #{portGroupName}, '%')
+				</if>
+				<if test="portUrl!=null">
+					and port_url=#{portUrl}
+				</if>
+		</select>
 </mapper>
