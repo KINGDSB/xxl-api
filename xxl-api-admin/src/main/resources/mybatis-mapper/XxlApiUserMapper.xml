@@ -33,7 +33,7 @@
 			#{password},
 			#{type},
 			#{permissionBiz},
-			#{pid},
+			#{pid}
 		);
 	</insert>
 

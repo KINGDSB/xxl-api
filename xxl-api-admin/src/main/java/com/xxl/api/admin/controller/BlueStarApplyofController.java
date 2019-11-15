@@ -2,6 +2,7 @@ package com.xxl.api.admin.controller;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.github.pagehelper.PageHelper;
+import com.xxl.api.admin.config.PageUtil;
 import com.xxl.api.admin.controller.annotation.PermessionLimit;
 import com.xxl.api.admin.core.model.BlueStarAuditDTO;
 import com.xxl.api.admin.core.model.ReturnT;
@@ -53,12 +56,16 @@ public class BlueStarApplyofController {
 	 */
 	@PostMapping("/applyof/applyofAll")
 	@PermessionLimit(limit=false)
-	public ReturnT<List> selectApplyOf(BlueStarApplyfromDTO apply){
-		List<BlueStarApplyfromDTO> list = applyOfServiceImp.getApplyOfData(apply);
-		if(list!=null&&!list.isEmpty()){
-			return new ReturnT<List>(ReturnT.SUCCESS_CODE,ReturnT.SELECT_SUCCESS,list);
+	public ReturnT<List> selectApplyOf(BlueStarApplyfromDTO apply,PageUtil page){
+	    page.setPageNo(2);
+        page.setPageSize(2);
+	    PageHelper.startPage(page.getPageNo(),page.getPageSize());//分页插件PageHelper
+		List<BlueStarApplyfromDTO> Promise  = applyOfServiceImp.getApplyOfData(apply,page);
+		if(Promise!=null&&!Promise.isEmpty()){
+		    return new ReturnT<List>(ReturnT.SUCCESS_CODE,ReturnT.SELECT_SUCCESS,Promise);
 		}
-		return new ReturnT<List>(ReturnT.FAIL_CODE,ReturnT.SELECT_FAIL);
+		ReturnT<List>  list = new ReturnT<List>(ReturnT.FAIL_CODE,ReturnT.SELECT_FAIL);
+		return list;
 	}
 	
 	/**
@@ -67,12 +74,14 @@ public class BlueStarApplyofController {
 	 */
 	@PostMapping("/author/authorAllLog")
 	@PermessionLimit(limit=false)
-	public ReturnT<List> selectAllAuthor(BlueStarAuditDTO audit){
+	public ReturnT<List> selectAllAuthor(BlueStarAuditDTO audit,PageUtil page){
+	    page.setPageNo(2);
+	    page.setPageSize(2);
+	    PageHelper.startPage(page.getPageNo(),page.getPageSize());
 		List<BlueStarAuditDTO>	list = applyOfServiceImp.selectAllAuthor(audit);
 		if(list!=null&&!list.isEmpty()){
 			return new ReturnT<List>(ReturnT.SUCCESS_CODE,ReturnT.SELECT_SUCCESS,list);
 		}
 		return new ReturnT<List>(ReturnT.FAIL_CODE,ReturnT.SELECT_FAIL);
 	}
-	
 }

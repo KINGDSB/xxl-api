@@ -419,7 +419,7 @@ public class XxlApiUserController {
 		data.put("userName", tokenUser.getUserName());
 
 		System.out.println(" 返回假数据 ");
-		System.out.println(info);
+//		System.out.println(info);
 
 		return ReturnT.success(data);
 	}

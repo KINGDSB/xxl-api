@@ -9,7 +9,6 @@ public class BlueStarUserProfileDTO implements Serializable{
 	private String name;
 	private String address ;
 	private String idNumber;
-	
 	public String getUserId() {
 		return userId;
 	}

@@ -30,6 +30,9 @@
                     <if test="idNumber != null">
                            id_number,
                     </if>
+                    <if test="pid !=null">
+                            pid,
+                    </if>>        
                </trim>     
            	  	<trim prefix="values (" suffix=")" suffixOverrides=",">
                     <if test="userId!= null">
@@ -43,7 +46,10 @@
                     </if>
                     <if test="idNumber != null">
                            #{idNumber,jdbcType=VARCHAR},
-                    </if>  
+                    </if>
+                    <if test="pid != null">
+                           #{pid,jdbcType=VARCHAR},
+                    </if>    
                   </trim>         
       	</insert>
         <update id="updateProfile" parameterType="com.xxl.api.admin.core.model.BlueStarUserProfileDTO">

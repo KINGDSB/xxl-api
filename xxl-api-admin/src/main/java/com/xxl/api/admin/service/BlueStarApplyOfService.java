@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.xxl.api.admin.config.PageUtil;
 import com.xxl.api.admin.core.model.BlueStarApplyfromDTO;
 import com.xxl.api.admin.core.model.BlueStarAuditDTO;
 import com.xxl.api.admin.core.model.ReturnT;
@@ -29,12 +30,14 @@ public interface BlueStarApplyOfService {
 	 * 可根据 id applyOfName applyOfStatus 动态查询
 	 * @return
 	 */
-	List<BlueStarApplyfromDTO> getApplyOfData(BlueStarApplyfromDTO apply);
+//	List<BlueStarApplyfromDTO> getApplyOfData(BlueStarApplyfromDTO apply);
+	List<BlueStarApplyfromDTO> getApplyOfData(BlueStarApplyfromDTO apply, PageUtil page);
 	/**
 	 * 查询所有审批记录
 	 * @return
 	 */
 	List<BlueStarAuditDTO> selectAllAuthor(BlueStarAuditDTO audit);
+    
 
 	
 

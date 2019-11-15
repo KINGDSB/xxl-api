@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.xxl.api.admin.core.model.BlueStarAuditDTO;
 import com.xxl.api.admin.core.util.StringUtil;
+import com.xxl.api.admin.config.PageUtil;
 import com.xxl.api.admin.core.model.BlueStarApplyfromDTO;
 import com.xxl.api.admin.dao.BlueStarApplyOfMapper;
 import com.xxl.api.admin.dao.BlueStarAuthorMapper;
@@ -39,7 +40,7 @@ public class BlueStarApplyOfServiceImpl implements BlueStarApplyOfService{
 		return authordao.insertAudit(audit);//新增审批日志信息
 	}
 	@Override
-	public List<BlueStarApplyfromDTO> getApplyOfData(BlueStarApplyfromDTO apply) {
+	public List<BlueStarApplyfromDTO> getApplyOfData(BlueStarApplyfromDTO apply, PageUtil page) {
 		return  applydao.getApplyOfData(apply);
 	}
 	@Override

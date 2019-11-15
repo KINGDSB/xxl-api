@@ -1,7 +1,6 @@
 package com.xxl.api.admin.core.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 import lombok.Data;
 
@@ -27,26 +26,26 @@ public class ReturnT<T> implements Serializable {
 	public static final String SELECT_FAIL="查询失败";
 	private int code;
 	private String msg;
-	private T content;
+	private T data;
 	public ReturnT(int failCode, String msg) {
 		this.code = failCode;
 		this.msg = msg;
 	}
 
-	public ReturnT(int code, String msg, T content) {
+	public ReturnT(int code, String msg, T data) {
 		super();
 		this.code = code;
 		this.msg = msg;
-		this.content = content;
+		this.data = data;
 	}
 	
 	
-	public ReturnT(T content) {
+	public ReturnT(T data) {
 		this.code = SUCCESS_CODE;
-		this.content = content;
+		this.data = data;
 	}
-	public static ReturnT success(Object content) {
-		return new ReturnT(content);
+	public static ReturnT success(Object data) {
+		return new ReturnT(data);
 	}
 
 	public int getCode() {
@@ -61,16 +60,16 @@ public class ReturnT<T> implements Serializable {
 	public void setMsg(String msg) {
 		this.msg = msg;
 	}
-	public T getContent() {
-		return content;
+	public T getData() {
+		return data;
 	}
-	public void setContent(T content) {
-		this.content = content;
+	public void setData(T data) {
+		this.data = data;
 	}
 
 	@Override
 	public String toString() {
-		return "ReturnT [code=" + code + ", msg=" + msg + ", content=" + content + "]";
+		return "ReturnT [code=" + code + ", msg=" + msg + ", data=" + data + "]";
 	}
 
 }

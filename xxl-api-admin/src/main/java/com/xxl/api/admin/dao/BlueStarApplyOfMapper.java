@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.xxl.api.admin.core.model.BlueStarAuditDTO;
+import com.xxl.api.admin.config.PageUtil;
 import com.xxl.api.admin.core.model.BlueStarApplyfromDTO;
 @Mapper
 public interface BlueStarApplyOfMapper {
