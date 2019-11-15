@@ -30,13 +30,14 @@ public interface BlueStarApplyOfService {
 	 * 可根据 id applyOfName applyOfStatus 动态查询
 	 * @return
 	 */
-//	List<BlueStarApplyfromDTO> getApplyOfData(BlueStarApplyfromDTO apply);
-	List<BlueStarApplyfromDTO> getApplyOfData(BlueStarApplyfromDTO apply, PageUtil page);
+	List<BlueStarApplyfromDTO> getApplyOfData(BlueStarApplyfromDTO apply);
+
 	/**
 	 * 查询所有审批记录
 	 * @return
 	 */
 	List<BlueStarAuditDTO> selectAllAuthor(BlueStarAuditDTO audit);
+   
     
 
 	

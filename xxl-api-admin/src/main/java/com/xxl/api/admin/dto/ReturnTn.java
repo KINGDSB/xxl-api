@@ -1,4 +1,4 @@
-package com.xxl.api.admin.core.model;
+package com.xxl.api.admin.dto;
 
 import java.io.Serializable;
 
@@ -10,15 +10,15 @@ import lombok.Data;
  * @param <T>
  */
 @Data
-public class ReturnT<T> implements Serializable {
+public class ReturnTn<T> implements Serializable {
 	public static final long serialVersionUID = 42L;
 
 	public static final int SUCCESS_CODE = 200;
 	public static final int FAIL_CODE = 500;
 	public static final int UPDARE_CODE = 400;
 	public static final int INSERT_CODE = 200;
-	public static final ReturnT<String> SUCCESS = new ReturnT<String>(null);
-	public static final ReturnT<String> FAIL = new ReturnT<String>(FAIL_CODE, null);
+	public static final ReturnTn<String> SUCCESS = new ReturnTn<String>(null);
+	public static final ReturnTn<String> FAIL = new ReturnTn<String>(FAIL_CODE, null);
 	public static final String UPDATE_SUSESS="更新成功";
 	public static final String APPLY_PASS="申请通过";
 	public static final String APPLY_NOT_PASS="申请未通过";
@@ -26,26 +26,26 @@ public class ReturnT<T> implements Serializable {
 	public static final String SELECT_FAIL="查询失败";
 	private int code;
 	private String msg;
-	private T content;
-	public ReturnT(int failCode, String msg) {
+	private T promise;
+	public ReturnTn(int failCode, String msg) {
 		this.code = failCode;
 		this.msg = msg;
 	}
 
-	public ReturnT(int code, String msg, T content) {
+	public ReturnTn(int code, String msg, T promise) {
 		super();
 		this.code = code;
 		this.msg = msg;
-		this.content = content;
+		this.promise = promise;
 	}
 	
 	
-	public ReturnT(T content) {
+	public ReturnTn(T promise) {
 		this.code = SUCCESS_CODE;
-		this.content = content;
+		this.promise = promise;
 	}
-	public static ReturnT success(Object content) {
-		return new ReturnT(content);
+	public static ReturnTn success(Object promise) {
+		return new ReturnTn(promise);
 	}
 
 	public int getCode() {
@@ -60,16 +60,16 @@ public class ReturnT<T> implements Serializable {
 	public void setMsg(String msg) {
 		this.msg = msg;
 	}
-	public T getData() {
-		return content;
+	public T getPromise() {
+		return promise;
 	}
-	public void setData(T content) {
-		this.content = content;
+	public void setPromise(T promise) {
+		this.promise = promise;
 	}
 
 	@Override
 	public String toString() {
-		return "ReturnT [code=" + code + ", msg=" + msg + ", content=" + content + "]";
+		return "ReturnT [code=" + code + ", msg=" + msg + ", promise=" + promise + "]";
 	}
 
 }

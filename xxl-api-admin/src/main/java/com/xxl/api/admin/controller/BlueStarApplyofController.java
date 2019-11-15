@@ -17,6 +17,7 @@ import com.xxl.api.admin.config.PageUtil;
 import com.xxl.api.admin.controller.annotation.PermessionLimit;
 import com.xxl.api.admin.core.model.BlueStarAuditDTO;
 import com.xxl.api.admin.core.model.ReturnT;
+import com.xxl.api.admin.dto.ReturnTn;
 import com.xxl.api.admin.service.impl.BlueStarApplyOfServiceImpl;
 import com.xxl.api.admin.core.model.BlueStarApplyfromDTO;
 
@@ -56,15 +57,15 @@ public class BlueStarApplyofController {
 	 */
 	@PostMapping("/applyof/applyofAll")
 	@PermessionLimit(limit=false)
-	public ReturnT<List> selectApplyOf(BlueStarApplyfromDTO apply,PageUtil page){
-	    page.setPageNo(2);
-        page.setPageSize(2);
-	    PageHelper.startPage(page.getPageNo(),page.getPageSize());//分页插件PageHelper
-		List<BlueStarApplyfromDTO> Promise  = applyOfServiceImp.getApplyOfData(apply,page);
+	public ReturnTn<List> selectApplyOf(BlueStarApplyfromDTO apply,PageUtil page){
+	    if(page.getPageNo()!=null&&page.getPageSize()!=null){
+            PageHelper.startPage(page.getPageNo(),page.getPageSize()); //分页插件PageHelper
+        }
+		List<BlueStarApplyfromDTO> Promise  = applyOfServiceImp.getApplyOfData(apply);
 		if(Promise!=null&&!Promise.isEmpty()){
-		    return new ReturnT<List>(ReturnT.SUCCESS_CODE,ReturnT.SELECT_SUCCESS,Promise);
+		    return new ReturnTn<List>(ReturnT.SUCCESS_CODE,ReturnT.SELECT_SUCCESS,Promise);
 		}
-		ReturnT<List>  list = new ReturnT<List>(ReturnT.FAIL_CODE,ReturnT.SELECT_FAIL);
+		ReturnTn<List>  list = new ReturnTn<List>(ReturnT.FAIL_CODE,ReturnT.SELECT_FAIL);
 		return list;
 	}
 	
@@ -75,9 +76,9 @@ public class BlueStarApplyofController {
 	@PostMapping("/author/authorAllLog")
 	@PermessionLimit(limit=false)
 	public ReturnT<List> selectAllAuthor(BlueStarAuditDTO audit,PageUtil page){
-	    page.setPageNo(2);
-	    page.setPageSize(2);
-	    PageHelper.startPage(page.getPageNo(),page.getPageSize());
+	    if(page.getPageNo()!=null&&page.getPageSize()!=null){
+	        PageHelper.startPage(page.getPageNo(),page.getPageSize());
+	    }
 		List<BlueStarAuditDTO>	list = applyOfServiceImp.selectAllAuthor(audit);
 		if(list!=null&&!list.isEmpty()){
 			return new ReturnT<List>(ReturnT.SUCCESS_CODE,ReturnT.SELECT_SUCCESS,list);

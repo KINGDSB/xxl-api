@@ -40,7 +40,7 @@ public class BlueStarApplyOfServiceImpl implements BlueStarApplyOfService{
 		return authordao.insertAudit(audit);//新增审批日志信息
 	}
 	@Override
-	public List<BlueStarApplyfromDTO> getApplyOfData(BlueStarApplyfromDTO apply, PageUtil page) {
+	public List<BlueStarApplyfromDTO> getApplyOfData(BlueStarApplyfromDTO apply) {
 		return  applydao.getApplyOfData(apply);
 	}
 	@Override
